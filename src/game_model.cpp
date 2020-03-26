@@ -1,5 +1,5 @@
+#include <Geometry.h>
 #include "game_model.h"
-#include "geometry/geometry.h"
 
 void GameModel::update()
 {

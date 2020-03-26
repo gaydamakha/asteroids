@@ -1,5 +1,5 @@
-#include "Utils.h"
-#include "geometry/geometry.h"
+#include <Utils.h>
+#include <Geometry.h>
 #define _USE_MATH_DEFINES // for C
 
 Polygone* PolygoneFactory::createPolygone(

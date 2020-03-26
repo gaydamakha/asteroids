@@ -2,8 +2,8 @@
 #define SDL_DRAWER_H
 
 #include <SDL.h>
-#include "geometry/geometry.h"
-#include "Utils.h"
+#include <Geometry.h>
+#include <Utils.h>
 #include "drawer.h"
 
 class SdlDrawer : public Drawer

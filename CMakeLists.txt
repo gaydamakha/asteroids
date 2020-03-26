@@ -4,10 +4,11 @@ project(ASTEROIDS LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(VERBOSE)
+
 # begin with compilation of SDL2 copy 
 add_subdirectory(libraries/SDL2)
 add_subdirectory(libraries/Utils)
+add_subdirectory(libraries/Geometry)
 
 # convenient function for easy compilation of Asteroids project
 # usage: compilation(EXEC nom_executable SRC fichiers sources .cpp et .h USE_SDL)
@@ -25,7 +26,7 @@ function(COMPILATION)
     )
     target_sources(${COMPILATION_PREFIX_EXEC} PRIVATE ${SOURCES})
     set_target_properties(${COMPILATION_PREFIX_EXEC} PROPERTIES CXX_STANDARD 17)
-    target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC Utils)
+    target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC Utils Geometry)
     if (${COMPILATION_PREFIX_USE_SDL})
         target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC SDL2main SDL2-static)
     endif()

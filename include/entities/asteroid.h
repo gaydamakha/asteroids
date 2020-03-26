@@ -1,7 +1,7 @@
 #ifndef ASTEROID_H
 #define ASTEROID_H
 
-#include "geometry/geometry.h"
+#include <Geometry.h>
 #include "moving_particle.h"
 
 class Asteroid: public MovingParticle

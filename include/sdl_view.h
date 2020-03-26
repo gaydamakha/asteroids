@@ -2,7 +2,7 @@
 #define SDL_VIEW_H
 
 #include <SDL.h>
-#include "Utils.h"
+#include <Utils.h>
 #include "entities/asteroid.h"
 #include "game_view.h"
 

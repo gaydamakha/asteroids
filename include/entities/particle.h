@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "Utils.h"
+#include <Utils.h>
 
 class Particle
 {

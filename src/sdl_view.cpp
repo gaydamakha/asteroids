@@ -15,7 +15,7 @@ SdlView::SdlView(const std::string& game_name, int game_width, int game_height, 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
 	this->background = background;
 	drawer = new SdlDrawer(renderer);
-	center = {game_width/2, game_height/2};
+	center = {(double)game_width/2, (double)game_height/2};
 }
 
 void SdlView::clear() const

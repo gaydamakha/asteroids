@@ -1,7 +1,7 @@
 #ifndef VEC2_H
 #define VEC2_H
 #include <math.h>
-#include "Utils.h"
+#include <Utils.h>
 
 template <typename T>
 class Vec2

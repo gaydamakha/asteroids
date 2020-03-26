@@ -2,7 +2,7 @@
 #define POLYGONE_FACTORY_H
 
 #include <math.h>
-#include "Utils.h"
+#include <Utils.h>
 #include "polygone.h"
 
 namespace PolygoneFactory

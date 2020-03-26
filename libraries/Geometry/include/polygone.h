@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "vec2.h"
-#include "Utils.h"
+#include <Utils.h>
 #include "shape_with_vertices.h"
 
 class Polygone : public ShapeWithVertices

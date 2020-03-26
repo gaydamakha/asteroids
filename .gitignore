@@ -1,3 +1,4 @@
 .vscode/
 build/
 libraries/Utils/build/
+libraries/Geometry/build

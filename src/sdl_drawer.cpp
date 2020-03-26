@@ -23,8 +23,8 @@ void SdlDrawer::drawShape(const Vec2d& position, const Polygone& shape, const Co
 	auto vertices = shape.getVertices();
 	for (int i = vertices.size() ; i > 0; --i)
 	{
-		auto v1 = *vertices[i % vertices.size()].get() + position;
-		auto v2 = *vertices[i - 1].get() + position;
+		auto v1 = *vertices[i % vertices.size()] + position;
+		auto v2 = *vertices[i - 1] + position;
 		SDL_RenderDrawLineF(renderer, v1.getX(), v1.getY(), v2.getX(), v2.getY());
 		v1 = v2;
 	}
