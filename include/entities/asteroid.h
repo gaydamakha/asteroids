@@ -7,8 +7,9 @@
 class Asteroid: public MovingParticle
 {
 	Polygone shape;
+	double rotation_speed;
 public:
-	Asteroid(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color);
+	Asteroid(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color, double degrot);
 
 	~Asteroid();
 	
@@ -16,6 +17,10 @@ public:
 	{
 		return shape;
 	}
+
+	void turnShape();
+
+	void step();
 };
 
 #endif

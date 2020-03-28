@@ -12,7 +12,7 @@ public:
 
 	virtual void drawLineF(double, double, double, double) const = 0;
 
-	void drawPolygone(const Vec2d& position, const Polygone& polygone, const Color& color) const;
+	void drawPolygone(const Polygone& polygone, const Color& color) const;
 };
 
 #endif

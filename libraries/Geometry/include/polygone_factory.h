@@ -7,7 +7,7 @@
 
 namespace PolygoneFactory
 {
-	Polygone* createPolygone(float min_radius, float max_radius, float granularity, float min_angle_vary, float max_angle_vary);
+	Polygone* createPolygone(const Vec2d& position, float min_radius, float max_radius, float granularity, float min_angle_vary, float max_angle_vary);
 }
 
 #endif

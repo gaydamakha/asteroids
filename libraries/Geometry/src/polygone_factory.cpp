@@ -2,6 +2,7 @@
 #include <Geometry.h>
 
 Polygone* PolygoneFactory::createPolygone(
+		const Vec2d& position,
 		float min_radius,
 		float max_radius,
 		float granularity,
@@ -19,7 +20,7 @@ Polygone* PolygoneFactory::createPolygone(
 			double radius = radius_gen();
 			double x = sin(rand_angle) * radius;
 			double y = -cos(rand_angle) * radius;
-			polygone->addVertice(Vec2d(x, y));
+			polygone->addVertice(Vec2d(x, y) + position);
 		}
 
 		return polygone;

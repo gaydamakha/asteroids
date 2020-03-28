@@ -172,7 +172,30 @@ public:
 	{
 		return y;
 	}
+
+	Vec2<T> turn(const Vec2<T>& center, double rotangle);
 };
+
+template<typename T>
+Vec2<T> Vec2<T>::turn(const Vec2<T>& center, double rotangle)
+{
+    double s = sin(rotangle);
+    double c = cos(rotangle);
+
+    //translate to origin
+    x -= center.getX();
+	y -= center.getY();
+
+    //rotate
+    x = x * c - y * s;
+    y = x * s + y * c;
+
+    //translate to origin
+    x += center.getX();
+	y += center.getY();
+
+    return *this;
+}
 
 // Vec2<T> vec2;
 // T k;
