@@ -15,7 +15,6 @@ class SdlView : public GameView
 
 	SDL_Renderer* renderer;
 	SDL_Window* window;
-
 public:
 	SdlView(const std::string& game_name, int game_width, int game_height, const Color& background = BLACK);
 

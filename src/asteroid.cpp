@@ -1,4 +1,5 @@
 #include "entities/asteroid.h"
+#include <Geometry.h>
 
 Asteroid::Asteroid(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color): MovingParticle(position, velocity, color)
 {

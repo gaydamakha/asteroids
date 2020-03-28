@@ -30,5 +30,5 @@ void SdlView::update()
 
 void SdlView::showAsteroid(const Asteroid& a) const
 {
-	drawer->drawShape(a.getPosition(), a.getShape(), a.getColor());
+	drawer->drawPolygone(a.getPosition(), a.getShape(), a.getColor());
 }

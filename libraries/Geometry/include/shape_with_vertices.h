@@ -1,16 +1,33 @@
 #ifndef SHAPE_VER_H
 #define SHAPE_VER_H
 
-#include <memory>
-//Another way to include it?
 #include <Utils.h>
+#include <memory>
 #include "vec2.h"
 #include "shape.h"
+#include "iterable_shape.h"
 
-//Because circle have no vertice
-class ShapeWithVertices: public IterableCollection<std::shared_ptr<Vec2d>>, public Shape
+using Vertice = std::shared_ptr<Vec2d>;
+using VerticesArray = IterableCollection<Vertice>;
+
+class ShapeWithVertices: public IterableShape<Vertice>
 {
+protected:
+	VerticesArray vertices;
 public:
-	virtual const std::vector<std::shared_ptr<Vec2d>> getVertices() const = 0;
+	void addVertice(const Vec2d& v)
+	{
+		vertices.push(std::make_shared<Vec2d>(v));
+	}
+
+	const VerticesArray getVertices() const
+	{
+		return vertices;
+	}
+
+	const VerticesArray getData() const
+	{
+		return getVertices();
+	}
 };
 #endif // !SHAPE_H

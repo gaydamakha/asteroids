@@ -15,7 +15,7 @@ public:
 	{
 		this->game_width = game_width;
 		this->game_height = game_height;
-		this->max_astr_vel = 2.;
+		this->max_astr_vel = 0.2;
 	}
 
 	void update();

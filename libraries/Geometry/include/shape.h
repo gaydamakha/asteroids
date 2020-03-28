@@ -4,7 +4,7 @@
 class Shape
 {
 public:
-	virtual void dummy() = 0;
+	virtual const bool isCircular() const = 0;
 };
 
 #endif

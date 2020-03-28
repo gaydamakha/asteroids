@@ -26,9 +26,29 @@ public:
 		return collection.begin();
 	}
 
+	typename std::vector<T>::iterator prev(const typename std::vector<T>::iterator& current)
+	{
+		return std::prev(current);
+	}
+	
+	typename std::vector<T>::iterator next(const typename std::vector<T>::iterator& current)
+	{
+		return std::next(current);
+	}
+
 	typename std::vector<T>::iterator end()
 	{
 		return collection.end();
+	}
+
+	typename std::vector<T> getData() const
+	{
+		return collection;
+	}
+
+	std::size_t getSize() const
+	{
+		return collection.size();
 	}
 
 	~IterableCollection()

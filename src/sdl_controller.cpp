@@ -7,6 +7,9 @@ void SdlController::run()
 	while (!quit)
 	{
 		view->clear();
+
+		model->update();
+
 		SDL_Event event;
 		while (!quit && SDL_PollEvent(&event))
 		{
@@ -27,17 +30,11 @@ void SdlController::run()
 				break;
 			case SDL_MOUSEMOTION:	/*x += event.motion.xrel;*/	break;
 			case SDL_MOUSEBUTTONDOWN:
+				model->addRandomAsteroidWithRandomVelocity();
 				//printf("mouse click %d \n", event.button.button);
 				break;
 			default: break;
 			}
-		}
-
-		model->update();
-
-		if (SDL_BUTTON(SDL_BUTTON_LEFT))
-		{ 
-			model->addRandomAsteroidWithRandomVelocity();
 		}
 
 		for (auto& asteroid : model->getAsteroids())

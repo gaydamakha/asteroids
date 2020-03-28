@@ -5,10 +5,14 @@
 
 class Drawer
 {
+private:
+	virtual void setDrawColor(const Color& color) const {};
 public:
 	virtual void fillScreen(const Color& background) const = 0;
 
-	virtual void drawShape(const Vec2d& position, const Polygone& shape, const Color& color) const = 0;
+	virtual void drawLineF(double, double, double, double) const = 0;
+
+	void drawPolygone(const Vec2d& position, const Polygone& polygone, const Color& color) const;
 };
 
 #endif

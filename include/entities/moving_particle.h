@@ -8,7 +8,7 @@ class MovingParticle : public Particle
 public:
 	using Particle::Particle;
 
-	void step()
+	inline void step()
 	{
 		position += velocity;
 	}

@@ -1,6 +1,5 @@
 #include <Utils.h>
 #include <Geometry.h>
-#define _USE_MATH_DEFINES // for C
 
 Polygone* PolygoneFactory::createPolygone(
 		float min_radius,
@@ -25,4 +24,3 @@ Polygone* PolygoneFactory::createPolygone(
 
 		return polygone;
 	}
-
