@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <Utils.h>
 #include "entities/asteroid.h"
+#include "entities/ship.h"
 #include "game_view.h"
 
 class SdlView : public GameView
@@ -23,6 +24,8 @@ public:
 	void update();
 
 	void showAsteroid(const Asteroid& a) const;
+
+	void showShip(const Ship& s) const;
 };
 
 #endif

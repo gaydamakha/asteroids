@@ -17,7 +17,7 @@ add_subdirectory(libraries/Geometry)
 function(COMPILATION)
     cmake_parse_arguments(COMPILATION_PREFIX "USE_SDL" "EXEC" "SRC" ${ARGN})
     aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/include INCLUDES)
-    file(GLOB SOURCES ${COMPILATION_PREFIX_SRC}/*.cpp ${COMPILATION_PREFIX_SRC}/*/*.cpp)
+    file(GLOB SOURCES ${COMPILATION_PREFIX_SRC}/*.cpp)
     add_executable(${COMPILATION_PREFIX_EXEC} ${SOURCES} ${INCLUDES})
     target_include_directories(${COMPILATION_PREFIX_EXEC}
         PUBLIC 

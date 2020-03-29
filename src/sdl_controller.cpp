@@ -4,6 +4,9 @@
 void SdlController::run()
 {
 	bool quit = false;
+
+	model->addShipAtCenter();
+
 	while (!quit)
 	{
 		view->clear();
@@ -40,6 +43,11 @@ void SdlController::run()
 		for (auto& asteroid : model->getAsteroids())
 		{
 			view->showAsteroid(*asteroid);
+		}
+
+		for (auto& ship : model->getShips())
+		{
+			view->showShip(*ship);
 		}
 
 		view->update();

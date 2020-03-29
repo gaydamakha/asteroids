@@ -2,7 +2,7 @@
 #define GAME_MODEL_H
 
 #include "collections/asteroids_collection.h"
-
+#include "collections/ships_collection.h"
 
 class GameModel
 {
@@ -11,7 +11,9 @@ class GameModel
 	double max_astr_vel;
 	double max_astr_angle_vel;
 	AsteroidsCollection asteroids;
- 	//TODO: add ship and bullet
+	// A collection of ships to anticipate multiplayer
+	ShipsCollection ships;
+ 	//TODO: add bullets
 public:
 	GameModel(unsigned game_width, unsigned game_height);
 
@@ -19,9 +21,16 @@ public:
 
 	void addRandomAsteroidWithRandomVelocity();
 
+	void addShipAtCenter();
+
 	inline AsteroidsCollection getAsteroids() const
 	{
 		return asteroids;
+	}
+
+	inline ShipsCollection getShips() const
+	{
+		return ships;
 	}
 };
 

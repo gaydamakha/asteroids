@@ -239,7 +239,6 @@ Vec2<T> Vec2_aleanormgen()
 	return Vec2<T>(x, ygen());
 }
 
-
 //No outside(righthand) "-" operator - no sense to do the next:
 // T k;
 // Vec2<T> vec2 = {5,6};
@@ -248,6 +247,18 @@ Vec2<T> Vec2_aleanormgen()
 using Vec2i = Vec2<int>;
 using Vec2f = Vec2<float>;
 using Vec2d = Vec2<double>;
+
+template<typename VecType, typename... T>
+using AllVec2 = typename std::conjunction<std::is_same<T, Vec2<VecType>>...>::type;
+
+template<typename... T>
+using AllVec2i = AllVec2<int, T...>;
+
+template<typename... T>
+using AllVec2f = AllVec2<float, T...>;
+
+template<typename... T>
+using AllVec2d = AllVec2<double, T...>;
 
 #include "vec2_impl.h"
 
