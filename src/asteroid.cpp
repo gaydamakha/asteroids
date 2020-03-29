@@ -18,7 +18,19 @@ void Asteroid::step()
 	auto vertices = shape.getData();
 	for (auto& point: vertices)
 	{
-		*point = *point + velocity;
+		*point += velocity;
 		point->turn(position, rotation_speed);
+	}
+}
+
+void Asteroid::setPosition(double x, double y)
+{
+	Vec2d pos_new(x,y);
+	Vec2d delta = pos_new - position;
+	position = pos_new;
+	auto vertices = shape.getData();
+	for (auto& point: vertices)
+	{
+		*point += delta;
 	}
 }

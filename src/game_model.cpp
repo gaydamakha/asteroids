@@ -1,12 +1,38 @@
 #include <Geometry.h>
 #include "game_model.h"
 
+GameModel::GameModel(unsigned game_width, unsigned game_height)
+{
+    this->game_width = game_width;
+    this->game_height = game_height;
+    this->max_astr_vel = 0.03;
+    this->max_astr_angle_vel = 2.;
+}
 
 void GameModel::update()
 {
     for (auto& asteroid : asteroids)
     {
         asteroid->step();
+        auto position = asteroid->getPosition();
+        auto x = position.getX();
+        auto y = position.getY();
+        if (x < 0)
+        {
+            asteroid->setPosition(game_width, y);
+        }
+        else if (x > game_width)
+        {
+            asteroid->setPosition(0., position.getY());
+        }
+        if (y < 0)
+        {
+            asteroid->setPosition(x, game_height);
+        }
+        else if (y > game_height)
+        {
+            asteroid->setPosition(x, 0.);
+        }
     }
 }
 

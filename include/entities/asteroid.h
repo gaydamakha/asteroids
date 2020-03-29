@@ -18,6 +18,8 @@ public:
 		return shape;
 	}
 
+	void setPosition(double x, double y);
+
 	void step();
 };
 
