@@ -1,7 +1,9 @@
 #ifndef VEC2_H
 #define VEC2_H
+
 #include <math.h>
 #include <Utils.h>
+#include "Geometry.h"
 
 template <typename T>
 class Vec2
@@ -176,27 +178,6 @@ public:
 	Vec2<T> turn(const Vec2<T>& center, double rotangle);
 };
 
-template<typename T>
-Vec2<T> Vec2<T>::turn(const Vec2<T>& center, double rotangle)
-{
-    double s = sin(rotangle);
-    double c = cos(rotangle);
-
-    //translate to origin
-    x -= center.getX();
-	y -= center.getY();
-
-    //rotate
-    x = x * c - y * s;
-    y = x * s + y * c;
-
-    //translate to origin
-    x += center.getX();
-	y += center.getY();
-
-    return *this;
-}
-
 // Vec2<T> vec2;
 // T k;
 // k + vec2;
@@ -267,5 +248,7 @@ Vec2<T> Vec2_aleanormgen()
 using Vec2i = Vec2<int>;
 using Vec2f = Vec2<float>;
 using Vec2d = Vec2<double>;
+
+#include "vec2_impl.h"
 
 #endif

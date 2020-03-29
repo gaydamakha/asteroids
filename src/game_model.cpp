@@ -18,7 +18,7 @@ void GameModel::addRandomAsteroidWithRandomVelocity()
         velocity = Vec2_aleagen(-max_astr_vel, max_astr_vel, -max_astr_vel, max_astr_vel);
     } while (velocity.getX() == 0 && velocity.getY() == 0);
 
-    auto angle_gen = alea_generator(-5., +5.);
+    auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
 
     Polygone shape = *PolygoneFactory::createPolygone(position, 30, 50, 20, 25, 7);
     asteroids.push(std::make_shared<Asteroid>(shape, position, velocity, GREEN, angle_gen()));

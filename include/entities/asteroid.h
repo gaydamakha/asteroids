@@ -18,8 +18,6 @@ public:
 		return shape;
 	}
 
-	void turnShape();
-
 	void step();
 };
 

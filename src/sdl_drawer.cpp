@@ -16,7 +16,8 @@ void SdlDrawer::fillScreen(const Color& color) const
 	SDL_RenderClear(renderer);
 }
 
-void SdlDrawer::drawLineF(double x1, double y1, double x2, double y2) const
+void SdlDrawer::drawLineF(double x1, double y1, double x2, double y2, const Color& color) const
 {
+	setDrawColor(color);
 	SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
 }

@@ -24,7 +24,7 @@ function(COMPILATION)
             $<INSTALL_INTERFACE:include>    
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     )
-    target_sources(${COMPILATION_PREFIX_EXEC} PRIVATE ${SOURCES})
+    target_sources(${COMPILATION_PREFIX_EXEC} PUBLIC ${SOURCES})
     set_target_properties(${COMPILATION_PREFIX_EXEC} PROPERTIES CXX_STANDARD 17)
     target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC Utils Geometry)
     if (${COMPILATION_PREFIX_USE_SDL})

@@ -16,7 +16,7 @@ public:
 
 	void fillScreen(const Color& color) const;
 
-	void drawLineF(double, double, double, double) const;
+	void drawLineF(double, double, double, double, const Color&) const;
 };
 
 #endif

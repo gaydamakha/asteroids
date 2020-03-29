@@ -6,13 +6,6 @@
 #include "shape.h"
 #include "shape_with_vertices.h"
 #include "vec2.h"
-
-namespace Geometry
-{
-    inline double degtorad(double angle)
-    {
-        return angle / 180.0 * M_PI;
-    }
-}
+#include "trigonometry.h"
 
 #endif
