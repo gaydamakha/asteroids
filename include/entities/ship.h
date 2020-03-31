@@ -2,25 +2,37 @@
 #define SHIP_H
 
 #include <Geometry.h>
-#include "moving_particle.h"
+#include "moving_polygone_particle.h"
 
-class Ship: public MovingParticle
+class Ship: public MovingPolygoneParticle
 {
-	Polygone shape;
-	double rotation_speed;
+protected:
+	Vec2d direction;
+	double jerk;
 public:
-	Ship(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color);
-
-	~Ship();
-	
-	inline Polygone getShape() const
-	{
-		return shape;
-	}
-
-	void setPosition(double x, double y);
+	Ship(
+		const Vec2d& position,
+		const Color& color,
+		const Vec2d& velocity,
+		const Vec2d& acceleration,
+		double min_velocity,
+		double max_velocity,
+		double min_acceleration,
+		double max_acceleration,
+		double rotation_freq,
+		const Polygone& shape,
+		Vec2d direction,
+		double jerk);
 
 	void step();
+
+	void slow(double);
+
+	void accelerate();
+
+	void rotateLeft();
+
+	void rotateRight();
 };
 
 #endif

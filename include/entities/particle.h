@@ -7,13 +7,11 @@ class Particle
 {
 protected:
 	Vec2d position;
-	Vec2d velocity;
 	Color color;
 public:
-	Particle(const Vec2d& position, const Vec2d& velocity, const Color& color)
+	Particle(const Vec2d& position, const Color& color)
 	{
 		this->position = position;
-		this->velocity = velocity;
 		this->color = color;
 	}
 
@@ -22,9 +20,9 @@ public:
 		return position;
 	}
 
-	inline Vec2d getVelocity() const
+	virtual void setPosition(Vec2d p)
 	{
-		return velocity;
+		position = p;
 	}
 
 	inline Color getColor() const

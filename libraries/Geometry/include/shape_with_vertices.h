@@ -4,7 +4,6 @@
 #include <Utils.h>
 #include <memory>
 #include "vec2.h"
-#include "shape.h"
 #include "iterable_shape.h"
 
 using Vertice = std::shared_ptr<Vec2d>;
@@ -29,5 +28,9 @@ public:
 	{
 		return getVertices();
 	}
+
+	const void rotate(const Vec2d&, double);
+
+	const void translate(const Vec2d&);
 };
 #endif // !SHAPE_H

@@ -1,13 +1,16 @@
+#ifndef VEC2_IMPL_H
+#define VEC2_IMP_H
+
+#include <math.h>
 #include "vec2.h"
 #include "trigonometry.h"
 
 template<typename T>
-Vec2<T> Vec2<T>::turn(const Vec2<T>& center, double rotangle)
+Vec2<T> Vec2<T>::rotate(const Vec2<T>& center, double rotangle)
 {
-    double s = sind(d2r(rotangle));
-    double c = cosd(d2r(rotangle));
+    long double s = sind(rotangle);
+    long double c = cosd(rotangle);
 
-	// Vec2<T> copy = *this;
     //translate to origin
 	*this -= center;
 
@@ -20,3 +23,5 @@ Vec2<T> Vec2<T>::turn(const Vec2<T>& center, double rotangle)
 
     return *this;
 }
+
+#endif

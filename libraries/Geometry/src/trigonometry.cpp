@@ -9,21 +9,56 @@ double sind(double x) {
     return -sind(-x);
   }
   int quo;
+  double res;
   double x90 = remquo(fabs(x), 90.0, &quo);
   switch (quo % 4) {
     case 0:
-      // Use * 1.0 to avoid -0.0
-      return sin(d2r(x90)* 1.0);
+      res = sin(d2r(x90));
+      break;
     case 1:
-      return cos(d2r(x90));
+      res = cos(d2r(x90));
+      break;
     case 2:
-      return sin(d2r(-x90) * 1.0);
+      res = sin(d2r(-x90));
+      break;
     case 3:
-      return -cos(d2r(x90));
+      res = -cos(d2r(x90));
+      break;
+    default:
+      return 0.0;
   }
-  return 0.0;
+  if (res == -0.0) { res = 0.0; }
+  
+  return res;
 }
 
 double cosd(double x) {
-    return sqrtf64(1 - powf64(sind(x), 2));
+  if (!isfinite(x)) {
+    return cos(x);
+  }
+  if (x < 0.0) {
+    return cosd(-x);
+  }
+  int quo;
+  double res;
+  double x90 = remquo(fabs(x), 90.0, &quo);
+  switch (quo % 4) {
+    case 0:
+      res = cos(d2r(x90));
+      break;
+    case 1:
+      res = -sin(d2r(x90));
+      break;
+    case 2:
+      res = -cos(d2r(x90));
+      break;
+    case 3:
+      res = sin(d2r(x90));
+      break;
+    default:
+      return 0.0;
+  }
+  if (res == -0.0) { res = 0.0; }
+  
+  return res;
 }

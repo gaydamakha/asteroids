@@ -2,23 +2,12 @@
 #define ASTEROID_H
 
 #include <Geometry.h>
-#include "moving_particle.h"
+#include "moving_polygone_particle.h"
 
-class Asteroid: public MovingParticle
+class Asteroid: public MovingPolygoneParticle
 {
-	Polygone shape;
-	double rotation_speed;
 public:
-	Asteroid(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color, double degrot);
-
-	~Asteroid();
-	
-	inline Polygone getShape() const
-	{
-		return shape;
-	}
-
-	void setPosition(double x, double y);
+	using MovingPolygoneParticle::MovingPolygoneParticle;
 
 	void step();
 };

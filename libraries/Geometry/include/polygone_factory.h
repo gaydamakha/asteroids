@@ -3,7 +3,8 @@
 
 #include <math.h>
 #include <Utils.h>
-#include "polygone.h"
+// #include "polygone_factory.h"
+#include "vec2.h"
 
 namespace PolygoneFactory
 {

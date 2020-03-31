@@ -3,9 +3,14 @@
 
 void SdlController::run()
 {
+	//TODO: write it in config entity (sort of communication between Model and Controller(Adapter pattern?))
+	Vec2d up = Vec2d(0, -1);
+
 	bool quit = false;
 
-	model->addShipAtCenter();
+	model->addShipAtCenter(up);
+
+	model->addRandomAsteroidWithRandomVelocity();
 
 	while (!quit)
 	{
@@ -24,16 +29,23 @@ void SdlController::run()
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym)
 				{
-					// touche clavier
-				case SDLK_LEFT:; break;
-				case SDLK_RIGHT:; break;
+				// touche clavier
+				case SDLK_LEFT:
+					model->rotateShipsLeft();
+					break;
+				case SDLK_RIGHT:
+					model->rotateShipsRight();
+					break;
+				case SDLK_UP:
+					model->accelerateShips();
+					break;
 				case SDLK_ESCAPE: quit = true; break;
 				default: break;
 				}
 				break;
 			case SDL_MOUSEMOTION:	/*x += event.motion.xrel;*/	break;
 			case SDL_MOUSEBUTTONDOWN:
-				model->addRandomAsteroidWithRandomVelocity();
+				
 				//printf("mouse click %d \n", event.button.button);
 				break;
 			default: break;

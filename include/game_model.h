@@ -8,8 +8,22 @@ class GameModel
 {
 	unsigned game_width;
 	unsigned game_height;
+	
+	//Asteroids configs
 	double max_astr_vel;
 	double max_astr_angle_vel;
+
+	//Ship configs
+	double max_ship_vel;
+	double max_ship_acc;
+	double ship_jerk;
+	// double max_ship_angle_vel;
+
+	// double ship_angle_acc_step;
+
+	//env characteristics
+	double env_resistence;
+
 	AsteroidsCollection asteroids;
 	// A collection of ships to anticipate multiplayer
 	ShipsCollection ships;
@@ -21,7 +35,13 @@ public:
 
 	void addRandomAsteroidWithRandomVelocity();
 
-	void addShipAtCenter();
+	void addShipAtCenter(Vec2d direction);
+
+	void accelerateShips();
+
+	void rotateShipsLeft();
+
+	void rotateShipsRight();
 
 	inline AsteroidsCollection getAsteroids() const
 	{

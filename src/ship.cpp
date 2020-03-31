@@ -1,36 +1,60 @@
 #include <Geometry.h>
 #include "entities/ship.h"
+#include "entities/moving_polygone_particle.h"
 
-Ship::Ship(const Polygone& shape, const Vec2d& position, const Vec2d& velocity, const Color& color): MovingParticle(position, velocity, color)
+Ship::Ship(
+		const Vec2d& position,
+		const Color& color,
+		const Vec2d& velocity,
+		const Vec2d& acceleration,
+		double min_velocity,
+		double max_velocity,
+		double min_acceleration,
+		double max_acceleration,
+		double rotation_freq,
+		const Polygone& shape,
+		Vec2d direction,
+		double jerk): MovingPolygoneParticle(
+											position,
+											color,
+											velocity,
+											acceleration,
+											min_velocity,
+											max_velocity,
+											min_acceleration,
+											max_acceleration,
+											rotation_freq,
+											shape)
 {
-	this->shape = shape;
-	this->rotation_speed = 0;
-}
-
-Ship::~Ship()
-{
-
+	this->direction = direction;
+	this->jerk = jerk;
+	//TODO: calculate angle between direction and the nose of ship
+	this->shape.rotate(position, 180.);
 }
 
 void Ship::step()
 {
-	MovingParticle::step();
-	auto vertices = shape.getData();
-	for (auto& point: vertices)
-	{
-		*point += velocity;
-		point->turn(position, rotation_speed);
-	}
+	MovingPolygoneParticle::step();
 }
 
-void Ship::setPosition(double x, double y)
+void Ship::accelerate()
 {
-	Vec2d pos_new(x,y);
-	Vec2d delta = pos_new - position;
-	position = pos_new;
-	auto vertices = shape.getData();
-	for (auto& point: vertices)
-	{
-		*point += delta;
-	}
+	MovingParticle::accelerate(jerk * direction);
+}
+
+void Ship::slow(double k)
+{
+	MovingParticle::accelerate((-velocity) * k);
+}
+
+void Ship::rotateLeft()
+{
+	shape.rotate(position, -5.);
+	// direction.rotate(position, 5.);
+}
+
+void Ship::rotateRight()
+{
+	shape.rotate(position, 5.);
+	// direction.rotate(position, -5.);
 }

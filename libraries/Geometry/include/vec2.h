@@ -3,7 +3,6 @@
 
 #include <math.h>
 #include <Utils.h>
-#include "Geometry.h"
 
 template <typename T>
 class Vec2
@@ -174,8 +173,13 @@ public:
 	{
 		return y;
 	}
+	
+	inline double getLength()
+	{
+		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
+	}
 
-	Vec2<T> turn(const Vec2<T>& center, double rotangle);
+	Vec2<T> rotate(const Vec2<T>& center, double rotangle);
 };
 
 // Vec2<T> vec2;
