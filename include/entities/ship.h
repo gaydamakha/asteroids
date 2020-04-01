@@ -7,23 +7,17 @@
 class Ship: public MovingPolygoneParticle
 {
 protected:
-	std::shared_ptr<Vec2d> nose;
-	Vec2d direction;
-	double jerk;
+	double angle;
+	double acc;
 public:
 	Ship(
 		const Vec2d& position,
 		const Color& color,
 		const Vec2d& velocity,
-		const Vec2d& acceleration,
-		double min_velocity,
-		double max_velocity,
-		double min_acceleration,
-		double max_acceleration,
-		double angle_jerk,
 		const Polygone& shape,
-		Vec2d init_direction,
-		double jerk);
+		double angle_jerk,
+		double init_angle,
+		double acc);
 
 	void step();
 
@@ -34,11 +28,6 @@ public:
 	void rotateLeft();
 
 	void rotateRight();
-
-	inline Vec2d getDirection() const
-	{
-		return direction;
-	}
 };
 
 #endif

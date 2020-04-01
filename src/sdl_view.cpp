@@ -36,12 +36,4 @@ void SdlView::showAsteroid(const Asteroid& a) const
 void SdlView::showShip(const Ship& s) const
 {
 	drawer->drawPolygone(s.getShape(), s.getColor());
-	Vec2d p = s.getPosition();
-	Vec2d dir = s.getDirection() * 100 + p;
-	Vec2d vel = s.getVelocity() * 100 + p;
-	Vec2d acc = s.getAcceleration() * 100 + p;
-
-	drawer->drawLineF(p.getX(), p.getY(), dir.getX(), dir.getY(), WHITE);
-	drawer->drawLineF(p.getX(), p.getY(), vel.getX(), vel.getY(), BLUE);
-	drawer->drawLineF(p.getX(), p.getY(), acc.getX(), acc.getY(), RED);
 }

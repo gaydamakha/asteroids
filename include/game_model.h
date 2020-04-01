@@ -14,12 +14,8 @@ class GameModel
 	double max_astr_angle_vel;
 
 	//Ship configs
-	double max_ship_vel;
-	double max_ship_acc;
-	double ship_jerk;
-	double ship_angle_jerk;
-
-	// double ship_angle_acc_step;
+	double ship_acc;
+	double ship_angle_acc;
 
 	//env characteristics
 	double env_resistence;
@@ -35,7 +31,7 @@ public:
 
 	void addRandomAsteroidWithRandomVelocity();
 
-	void addShipAtCenter(Vec2d direction);
+	void addShipAtCenter(double);
 
 	void accelerateShips();
 

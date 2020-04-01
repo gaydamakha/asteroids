@@ -6,15 +6,16 @@ void SdlController::run()
 	bool quit = false;
 	SDL_Event event;
 	//TODO: write it in config entity (sort of communication between Model and Controller(Adapter pattern?))
-	Vec2d up = Vec2d(0, -1);
 
-	model->addShipAtCenter(up);
+	double init_angle = 270.0;
+
+	model->addShipAtCenter(init_angle);
 
 	model->addRandomAsteroidWithRandomVelocity();
 
 	while (!quit)
 	{
-		SDL_Delay(10);
+		SDL_Delay(5);
 		view->clear();
 
 		model->update();

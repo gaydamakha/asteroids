@@ -8,20 +8,14 @@ class MovingPolygoneParticle: public MovingParticle
 {
 protected:
 	Polygone shape;
-	//TODO: imitate rotation acceleration
-	double angle_jerk;
+	double angle_acc;
 public:
 	MovingPolygoneParticle(
 		const Vec2d& position,
 		const Color& color,
 		const Vec2d& velocity,
-		const Vec2d& acceleration,
-		double min_velocity,
-		double max_velocity,
-		double min_acceleration,
-		double max_acceleration,
-		double angle_jerk,
-		const Polygone& shape);
+		const Polygone& shape,
+		double angle_acc);
 
 	~MovingPolygoneParticle();
 	
