@@ -11,7 +11,7 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 		double max_velocity,
 		double min_acceleration,
 		double max_acceleration,
-		double rotation_freq,
+		double angle_jerk,
 		const Polygone& shape) : MovingParticle(
 												position,
 												color,
@@ -23,7 +23,7 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 												max_acceleration)
 {
 	this->shape = shape;
-	this->rotation_freq = rotation_freq;
+	this->angle_jerk = angle_jerk;
 }
 
 MovingPolygoneParticle::~MovingPolygoneParticle()
@@ -35,10 +35,11 @@ void MovingPolygoneParticle::step()
 {
 	MovingParticle::step();
 	shape.translate(velocity);
-	shape.rotate(position, rotation_freq);
+	//TODO:acccelerate rotation speed and use it insted of angle_jerk
+	shape.rotate(position, angle_jerk);
 }
 
-void MovingPolygoneParticle::setPosition(Vec2d p)
+void MovingPolygoneParticle::moveTo(Vec2d p)
 {
 	Vec2d delta = p - position;
 	position = p;

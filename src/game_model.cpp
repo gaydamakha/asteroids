@@ -6,15 +6,15 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
     this->game_width = game_width;
     this->game_height = game_height;
     //TODO: move to a config entity
-    this->max_astr_vel = 0.05;
-    this->max_astr_angle_vel = 0.05;
+    this->max_astr_vel = 0.5;
+    this->max_astr_angle_vel = 2.0;
 
-    this->max_ship_vel = 0.3;
-    this->max_ship_acc = 0.5;
-    this->ship_jerk = 0.0005;
-    // this->max_ship_angle_vel = 3.;
-    // this->ship_angle_acc_step = 0.02;
-    this->env_resistence = 0.00005;
+    this->max_ship_vel = 5.0;
+    this->max_ship_acc = 1.0;
+    this->ship_jerk = 0.05;
+    this->ship_angle_jerk = 2.0;//One degree per one rotation acceleration
+
+    this->env_resistence = 0.02;
 }
 
 void GameModel::update()
@@ -27,19 +27,19 @@ void GameModel::update()
         auto y = position.getY();
         if (x < 0)
         {
-            asteroid->setPosition(Vec2d(game_width, y));
+            asteroid->moveTo(Vec2d(game_width, y));
         }
         else if (x > game_width)
         {
-            asteroid->setPosition(Vec2d(0., position.getY()));
+            asteroid->moveTo(Vec2d(0., position.getY()));
         }
         if (y < 0)
         {
-            asteroid->setPosition(Vec2d(x, game_height));
+            asteroid->moveTo(Vec2d(x, game_height));
         }
         else if (y > game_height)
         {
-            asteroid->setPosition(Vec2d(x, 0.));
+            asteroid->moveTo(Vec2d(x, 0.));
         }
     }
 
@@ -53,19 +53,19 @@ void GameModel::update()
         auto y = position.getY();
         if (x < 0)
         {
-            ship->setPosition(Vec2d(game_width, y));
+            ship->moveTo(Vec2d(game_width, y));
         }
         else if (x > game_width)
         {
-            ship->setPosition(Vec2d(0., position.getY()));
+            ship->moveTo(Vec2d(0., position.getY()));
         }
         if (y < 0)
         {
-            ship->setPosition(Vec2d(x, game_height));
+            ship->moveTo(Vec2d(x, game_height));
         }
         else if (y > game_height)
         {
-            ship->setPosition(Vec2d(x, 0.));
+            ship->moveTo(Vec2d(x, 0.));
         }
     }
 }
@@ -99,8 +99,6 @@ void GameModel::addShipAtCenter(Vec2d direction)
     Vec2d velocity(0., 0.);
     Vec2d acceleration(0., 0.);
     Polygone shape = *PolygoneFactory::createPolygone(position, Vec2d(0, 22), Vec2d(-16, -22), Vec2d(0, -16), Vec2d(16, -22));
-    auto vertices = shape.getData();
-	double angle;
     ships.push(std::make_shared<Ship>(
                                     position,
                                     GREEN,
@@ -108,7 +106,7 @@ void GameModel::addShipAtCenter(Vec2d direction)
                                     acceleration,
                                     0, max_ship_vel,
                                     0, max_ship_acc,
-                                    0.,
+                                    ship_angle_jerk,
                                     shape,
                                     direction,
                                     ship_jerk));

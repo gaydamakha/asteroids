@@ -41,6 +41,11 @@ public:
 		return collection.end();
 	}
 
+	T& operator[](int index)
+	{
+		return collection[index];
+	}
+
 	typename std::vector<T> getData() const
 	{
 		return collection;

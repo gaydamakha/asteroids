@@ -180,6 +180,9 @@ public:
 	}
 
 	Vec2<T> rotate(const Vec2<T>& center, double rotangle);
+
+	// Normalize the vector (make his length equal to 1)
+	Vec2<T> normalize();
 };
 
 // Vec2<T> vec2;

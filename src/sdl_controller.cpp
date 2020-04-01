@@ -3,10 +3,10 @@
 
 void SdlController::run()
 {
+	bool quit = false;
+	SDL_Event event;
 	//TODO: write it in config entity (sort of communication between Model and Controller(Adapter pattern?))
 	Vec2d up = Vec2d(0, -1);
-
-	bool quit = false;
 
 	model->addShipAtCenter(up);
 
@@ -14,50 +14,50 @@ void SdlController::run()
 
 	while (!quit)
 	{
+		SDL_Delay(10);
 		view->clear();
 
 		model->update();
 
-		SDL_Event event;
-		while (!quit && SDL_PollEvent(&event))
+		SDL_PollEvent(&event);
+		// while (SDL_PollEvent(&event))
+		// {
+		switch (event.type)
 		{
-			switch (event.type)
+		case SDL_QUIT:
+			quit = true;
+			break;
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym)
 			{
-			case SDL_QUIT:
+			// touche clavier
+			case SDLK_LEFT:
+				model->rotateShipsLeft();
+				break;
+			case SDLK_RIGHT:
+				model->rotateShipsRight();
+				break;
+			case SDLK_UP:
+				model->accelerateShips();
+				break;
+			case SDLK_ESCAPE:
 				quit = true;
 				break;
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym)
-				{
-				// touche clavier
-				case SDLK_LEFT:
-					model->rotateShipsLeft();
-					break;
-				case SDLK_RIGHT:
-					model->rotateShipsRight();
-					break;
-				case SDLK_UP:
-					model->accelerateShips();
-					break;
-				case SDLK_ESCAPE: quit = true; break;
-				default: break;
-				}
+			default:
 				break;
-			case SDL_MOUSEMOTION:	/*x += event.motion.xrel;*/	break;
-			case SDL_MOUSEBUTTONDOWN:
-				
-				//printf("mouse click %d \n", event.button.button);
-				break;
-			default: break;
 			}
+			break;
+		default:
+			break;
 		}
+		// }
 
-		for (auto& asteroid : model->getAsteroids())
+		for (auto &asteroid : model->getAsteroids())
 		{
 			view->showAsteroid(*asteroid);
 		}
 
-		for (auto& ship : model->getShips())
+		for (auto &ship : model->getShips())
 		{
 			view->showShip(*ship);
 		}

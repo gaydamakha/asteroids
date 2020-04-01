@@ -17,7 +17,7 @@ class GameModel
 	double max_ship_vel;
 	double max_ship_acc;
 	double ship_jerk;
-	// double max_ship_angle_vel;
+	double ship_angle_jerk;
 
 	// double ship_angle_acc_step;
 

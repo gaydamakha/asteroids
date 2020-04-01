@@ -8,8 +8,8 @@ class MovingPolygoneParticle: public MovingParticle
 {
 protected:
 	Polygone shape;
-	//Directly a frequency instead of introducing rotation speed and acceleration
-	double rotation_freq;
+	//TODO: imitate rotation acceleration
+	double angle_jerk;
 public:
 	MovingPolygoneParticle(
 		const Vec2d& position,
@@ -20,7 +20,7 @@ public:
 		double max_velocity,
 		double min_acceleration,
 		double max_acceleration,
-		double rotation_freq,
+		double angle_jerk,
 		const Polygone& shape);
 
 	~MovingPolygoneParticle();
@@ -30,7 +30,7 @@ public:
 		return shape;
 	}
 
-	void setPosition(Vec2d);
+	void moveTo(Vec2d);
 
 	void step();
 };

@@ -59,7 +59,7 @@ public:
 
 	void step()
 	{
-		Vec2d res = velocity + acceleration;
+		Vec2d res = velocity + (acceleration / 2);
 		if (!(res.getLength() < min_velocity) && !(res.getLength() > max_velocity))
 		{
 			velocity = res;
@@ -69,7 +69,20 @@ public:
 
 	virtual void accelerate(const Vec2d& acc)
 	{
-		Vec2d res = acceleration + acc;
+		Vec2d res = acceleration + (acc / 2);
+		bool max = !(res.getLength() > max_acceleration);
+		bool min = !(res.getLength() < min_acceleration);
+
+		if (!max)
+		{
+			std::cout << "Not max!" << std::endl;
+		}
+
+		if (!min)
+		{
+			std::cout << "Not min!" << std::endl;
+		}
+
 		if (!(res.getLength() < min_acceleration) && !(res.getLength() > max_acceleration))
 		{
 			acceleration = res;
