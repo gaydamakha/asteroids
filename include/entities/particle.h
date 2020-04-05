@@ -30,8 +30,8 @@ public:
 		return color;
 	}
 
-	//Do nothing in this basic particle
-	virtual void step() {};
+	// Do nothing in this basic particle
+	virtual void step(double seconds) {};
 };
 
 #endif

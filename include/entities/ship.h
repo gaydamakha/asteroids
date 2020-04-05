@@ -19,7 +19,7 @@ public:
 		double init_angle,
 		double acc);
 
-	void step();
+	void step(double);
 
 	void slow(double);
 

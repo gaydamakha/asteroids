@@ -27,7 +27,7 @@ class GameModel
 public:
 	GameModel(unsigned game_width, unsigned game_height);
 
-	void update();
+	void update(double);
 
 	void addRandomAsteroidWithRandomVelocity();
 

@@ -22,12 +22,9 @@ Ship::Ship(
 	this->shape.rotate(position, 180.0);
 }
 
-void Ship::step()
+void Ship::step(double s)
 {
-	double tmp = angle_acc;
-	angle_acc = 0.;
-	MovingPolygoneParticle::step();
-	angle_acc = tmp;
+	MovingPolygoneParticle::step(s);
 }
 
 void Ship::accelerate()
@@ -40,16 +37,19 @@ void Ship::slow(double k)
 	velocity -= velocity * k;
 }
 
+//TODO: add angle velocity
 void Ship::rotateLeft()
 {
 	shape.rotate(position, -angle_acc);
 	angle -= angle_acc;
-	std::cout << angle << std::endl;
+	if (angle < 0)
+	{
+		angle += 360;
+	}
 }
 
 void Ship::rotateRight()
 {
 	shape.rotate(position, angle_acc);
-	angle += angle_acc;
-	std::cout << angle << std::endl;
+	angle = std::fmod(angle + angle_acc, 360);
 }

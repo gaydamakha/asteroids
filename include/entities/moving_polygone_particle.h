@@ -26,7 +26,9 @@ public:
 
 	void moveTo(Vec2d);
 
-	void step();
+	void rotateShape(double);
+
+	void step(double);
 };
 
 #endif

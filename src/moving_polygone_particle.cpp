@@ -19,11 +19,15 @@ MovingPolygoneParticle::~MovingPolygoneParticle()
 {
 }
 
-void MovingPolygoneParticle::step()
+void MovingPolygoneParticle::step(double s)
 {
-	MovingParticle::step();
-	shape.translate(velocity);
-	shape.rotate(position, angle_acc);
+	MovingParticle::step(s);
+	shape.translate(velocity * s);
+}
+
+void MovingPolygoneParticle::rotateShape(double s)
+{
+	shape.rotate(position, angle_acc * s);	
 }
 
 void MovingPolygoneParticle::moveTo(Vec2d p)

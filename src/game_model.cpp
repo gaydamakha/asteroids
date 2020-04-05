@@ -6,18 +6,19 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
     this->game_width = game_width;
     this->game_height = game_height;
     //TODO: move to a config entity
-    this->max_astr_vel = 0.5;
-    this->max_astr_angle_vel = 1.0;
-    this->ship_acc = 0.08;
-    this->ship_angle_acc = 1.0; //Two degrees per one rotation
-    this->env_resistence = 0.02;
+    this->max_astr_vel = 50.0; // pixels per second
+    this->max_astr_angle_vel = 40.0;// degrees per second
+
+    this->ship_acc = 0.6; // pixels/second per second
+    this->ship_angle_acc = 0.2; // Degrees per one rotation
+    this->env_resistence = 0.001;
 }
 
-void GameModel::update()
+void GameModel::update(double seconds)
 {
     for (auto &asteroid : asteroids)
     {
-        asteroid->step();
+        asteroid->step(seconds);
         auto position = asteroid->getPosition();
         auto x = position.getX();
         auto y = position.getY();
@@ -41,8 +42,7 @@ void GameModel::update()
 
     for (auto &ship : ships)
     {
-        ship->step();
-        //fix it
+        ship->step(seconds);
         ship->slow(env_resistence);
         auto position = ship->getPosition();
         auto x = position.getX();

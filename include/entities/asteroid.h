@@ -9,7 +9,7 @@ class Asteroid: public MovingPolygoneParticle
 public:
 	using MovingPolygoneParticle::MovingPolygoneParticle;
 
-	void step();
+	void step(double);
 };
 
 #endif

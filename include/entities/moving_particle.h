@@ -26,9 +26,10 @@ public:
 		velocity = v;
 	}
 
-	void step()
+	void step(double s)
 	{
-		position += velocity;
+		// Velocity is px per second, so we multiply it by seconds
+		position += velocity * s;
 	}
 
 	virtual void accelerate(double angle, double acc)
