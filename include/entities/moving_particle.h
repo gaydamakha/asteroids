@@ -39,7 +39,7 @@ public:
 
 	virtual void slow(double k)
 	{
-		velocity -= velocity*k;
+		velocity -= velocity * k;
 	}
 };
 

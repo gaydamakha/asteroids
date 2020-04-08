@@ -24,9 +24,9 @@ public:
 		return shape;
 	}
 
-	void moveTo(Vec2d);
+	void setPosition(Vec2d);
 
-	void rotateShape(double);
+	virtual void rotateShape(double);
 
 	void step(double);
 };

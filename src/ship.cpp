@@ -7,19 +7,16 @@ Ship::Ship(
 	const Color &color,
 	const Vec2d &velocity,
 	const Polygone &shape,
-	double angle_jerk,
+	double angle_acc,
 	double init_angle,
 	double acc) : MovingPolygoneParticle(position,
 										 color,
 										 velocity,
 										 shape,
-										 angle_jerk)
+										 angle_acc)
 {
 	this->acc = acc;
-	auto vertices = this->shape.getData();
-
 	this->angle = init_angle;
-	this->shape.rotate(position, 180.0);
 }
 
 void Ship::step(double s)
@@ -52,4 +49,12 @@ void Ship::rotateRight()
 {
 	shape.rotate(position, angle_acc);
 	angle = std::fmod(angle + angle_acc, 360);
+}
+
+void Ship::setAngle(double a)
+{
+	double delta = a - angle;
+	//TODO: rotate the shape (if it will be still in the ship)
+	// shape.rotate(position, delta);
+	angle = a;
 }

@@ -30,7 +30,7 @@ void MovingPolygoneParticle::rotateShape(double s)
 	shape.rotate(position, angle_acc * s);	
 }
 
-void MovingPolygoneParticle::moveTo(Vec2d p)
+void MovingPolygoneParticle::setPosition(Vec2d p)
 {
 	Vec2d delta = p - position;
 	position = p;

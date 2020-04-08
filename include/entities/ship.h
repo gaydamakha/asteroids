@@ -28,6 +28,13 @@ public:
 	void rotateLeft();
 
 	void rotateRight();
+
+	inline double getAngle()
+	{
+		return angle;
+	}
+
+	void setAngle(double);
 };
 
 #endif

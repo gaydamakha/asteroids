@@ -39,6 +39,8 @@ public:
 
 	void rotateShipsRight();
 
+	void resetShips(double);
+
 	inline AsteroidsCollection getAsteroids() const
 	{
 		return asteroids;

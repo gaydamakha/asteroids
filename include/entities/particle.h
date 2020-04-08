@@ -20,7 +20,7 @@ public:
 		return position;
 	}
 
-	inline void setPosition(Vec2d p)
+	virtual inline void setPosition(Vec2d p)
 	{
 		position = p;
 	}

@@ -41,7 +41,8 @@ void SdlController::run()
 		if (keyboardState[SDL_SCANCODE_UP])
 			model->accelerateShips();
 		if (keyboardState[SDL_SCANCODE_SPACE])
-			// launch a bullet
+			// TODO: launch a bullet
+			model->resetShips(init_angle);
 		if (keyboardState[SDL_SCANCODE_ESCAPE])
 			quit = true;
 

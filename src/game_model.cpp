@@ -10,7 +10,7 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
     this->max_astr_angle_vel = 40.0;// degrees per second
 
     this->ship_acc = 0.6; // pixels/second per second
-    this->ship_angle_acc = 0.2; // Degrees per one rotation
+    this->ship_angle_acc = 0.1; // Degrees per one rotation
     this->env_resistence = 0.001;
 }
 
@@ -24,19 +24,19 @@ void GameModel::update(double seconds)
         auto y = position.getY();
         if (x < 0)
         {
-            asteroid->moveTo(Vec2d(game_width, y));
+            asteroid->setPosition(Vec2d(game_width, y));
         }
         else if (x > game_width)
         {
-            asteroid->moveTo(Vec2d(0., position.getY()));
+            asteroid->setPosition(Vec2d(0., position.getY()));
         }
         if (y < 0)
         {
-            asteroid->moveTo(Vec2d(x, game_height));
+            asteroid->setPosition(Vec2d(x, game_height));
         }
         else if (y > game_height)
         {
-            asteroid->moveTo(Vec2d(x, 0.));
+            asteroid->setPosition(Vec2d(x, 0.));
         }
     }
 
@@ -49,19 +49,19 @@ void GameModel::update(double seconds)
         auto y = position.getY();
         if (x < 0)
         {
-            ship->moveTo(Vec2d(game_width, y));
+            ship->setPosition(Vec2d(game_width, y));
         }
         else if (x > game_width)
         {
-            ship->moveTo(Vec2d(0., position.getY()));
+            ship->setPosition(Vec2d(0., position.getY()));
         }
         if (y < 0)
         {
-            ship->moveTo(Vec2d(x, game_height));
+            ship->setPosition(Vec2d(x, game_height));
         }
         else if (y > game_height)
         {
-            ship->moveTo(Vec2d(x, 0.));
+            ship->setPosition(Vec2d(x, 0.));
         }
     }
 }
@@ -90,7 +90,7 @@ void GameModel::addShipAtCenter(double init_angle)
 {
     Vec2d position(game_width / 2, game_height / 2);
     Vec2d velocity(0., 0.);
-    Polygone shape = *PolygoneFactory::createPolygone(position, Vec2d(0, 22), Vec2d(-16, -22), Vec2d(0, -16), Vec2d(16, -22));
+    Polygone shape = *PolygoneFactory::createPolygone(position, Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22));
     ships.push(std::make_shared<Ship>(
         position,
         GREEN,
@@ -122,5 +122,18 @@ void GameModel::rotateShipsRight()
     for (auto &ship : ships)
     {
         ship->rotateRight();
+    }
+}
+
+void GameModel::resetShips(double angle)
+{
+    Vec2d center(game_width / 2, game_height / 2);
+    for (auto& ship: ships)
+    {
+        //TODO: when points system will be added, remove one life-point
+        ship->setVelocity(Vec2d(0.,0.));
+        ship->setPosition(center);
+        //TODO:uncomment it when the view will be capable to rotate the ship
+        // ship->setAngle(angle);
     }
 }
