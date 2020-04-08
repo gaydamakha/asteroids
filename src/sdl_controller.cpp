@@ -15,7 +15,9 @@ void SdlController::run()
 
 	model->addShipAtCenter(init_angle);
 
-	model->addRandomAsteroidWithRandomVelocity();
+	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::BIG);
+	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::MEDIUM);
+	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::SMALL);
 
 	Timer* timer = new SdlTimer();
 

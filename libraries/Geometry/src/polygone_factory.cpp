@@ -1,15 +1,15 @@
 #include <Utils.h>
 #include <Geometry.h>
 
-Polygone* PolygoneFactory::createRandomPolygone(
-		const Vec2d& position,
-		float min_radius,
-		float max_radius,
-		float granularity,
-		float min_angle_vary,
-		float max_angle_vary)
+Polygone *PolygoneFactory::createRandomPolygone(
+	const Vec2d &position,	//Position
+	float min_radius,		//Minimum length of a vector from the center of the polygone
+	float max_radius,		//Maximum length of a vector from the center of the polygone
+	float granularity,		//Number of points
+	float min_angle_vary,	//Minimum variation of the angle
+	float max_angle_vary)	//Maximum variation of the angle
 {
-	Polygone* polygone = new Polygone();
+	Polygone *polygone = new Polygone();
 	for (double angle = 0; angle < 2 * M_PI; angle += 2 * M_PI / granularity)
 	{
 		auto radius_gen = alea_generator(min_radius, max_radius);

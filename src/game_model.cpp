@@ -1,5 +1,11 @@
+#include <bits/stdc++.h>
 #include <Geometry.h>
 #include "game_model.h"
+
+const std::map<AsteroidSize, AsteroidDesc> GameModel::asteroids_config = {
+    {AsteroidSize::BIG, {30, 50, 20, 25, 7}},
+    {AsteroidSize::MEDIUM, {20, 32, 20, 25, 7}},
+    {AsteroidSize::SMALL, {10, 20, 15, 25, 7}}};
 
 GameModel::GameModel(unsigned game_width, unsigned game_height)
 {
@@ -7,11 +13,11 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
     this->game_height = game_height;
     //TODO: move to a config entity
     this->max_astr_vel = 50.0;       // pixels per second
-    this->max_astr_angle_vel = 40.0; // degrees per second
+    this->max_astr_angle_vel = 50.0; // degrees per second
 
-    this->ship_acc = 0.6;       // pixels/second per second
-    this->ship_angle_acc = 0.1; // Degrees per one rotation
-    this->env_resistence = 0.001;
+    this->ship_acc = 0.3;       // pixels/second per second
+    this->ship_angle_acc = 0.2; // Degrees per one rotation
+    this->env_resistence = 0.0008;
 }
 
 void GameModel::update(double seconds)
@@ -66,7 +72,7 @@ void GameModel::update(double seconds)
     }
 }
 
-void GameModel::addRandomAsteroidWithRandomVelocity()
+void GameModel::addRandomAsteroidWithRandomVelocity(AsteroidSize size)
 {
     Vec2d position = Vec2_aleagen(0., (double)game_width, 0., (double)game_height);
     Vec2d velocity;
@@ -76,9 +82,10 @@ void GameModel::addRandomAsteroidWithRandomVelocity()
     } while (velocity.getX() == 0 && velocity.getY() == 0);
 
     auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
-
-    Polygone shape = *PolygoneFactory::createRandomPolygone(position, 30, 50, 20, 25, 7);
-    asteroids.push(Asteroid(position, GREEN, velocity, shape, angle_gen()));
+    AsteroidDesc desc = asteroids_config.at(size);
+    //TODO: is there another way to pass "desc"?
+    Polygone shape = *PolygoneFactory::createRandomPolygone(position, desc[0], desc[1], desc[2], desc[3], desc[4]);
+    asteroids.push(Asteroid(position, GREEN, velocity, shape, angle_gen(), desc[1]));
 }
 
 void GameModel::addShipAtCenter(double init_angle)

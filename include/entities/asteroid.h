@@ -4,10 +4,17 @@
 #include <Geometry.h>
 #include "moving_polygone_particle.h"
 
-class Asteroid: public MovingPolygoneParticle
+class Asteroid : public MovingPolygoneParticle
 {
+	const double shape_radius;
+
 public:
-	using MovingPolygoneParticle::MovingPolygoneParticle;
+	Asteroid(const Vec2d &position,
+			 const Color &color,
+			 const Vec2d &velocity,
+			 const Polygone &shape,
+			 double angle_acc,
+			 double radius);
 
 	void step(double);
 };

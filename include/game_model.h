@@ -1,14 +1,24 @@
 #ifndef GAME_MODEL_H
 #define GAME_MODEL_H
 
+#include <bits/stdc++.h>
 #include "collections/asteroids_collection.h"
 #include "collections/ships_collection.h"
+
+enum class AsteroidSize
+{
+	BIG,
+	MEDIUM,
+	SMALL
+};
+
+using AsteroidDesc = std::array<double, 5>;
 
 class GameModel
 {
 	unsigned game_width;
 	unsigned game_height;
-	
+
 	//Asteroids configs
 	double max_astr_vel;
 	double max_astr_angle_vel;
@@ -23,13 +33,16 @@ class GameModel
 	AsteroidsCollection asteroids;
 	// A collection of ships to anticipate multiplayer
 	ShipsCollection ships;
- 	//TODO: add bullets
+	//TODO: add bullets
+
+	static const std::map<AsteroidSize, AsteroidDesc> asteroids_config;
+
 public:
 	GameModel(unsigned game_width, unsigned game_height);
 
 	void update(double);
 
-	void addRandomAsteroidWithRandomVelocity();
+	void addRandomAsteroidWithRandomVelocity(AsteroidSize);
 
 	void addShipAtCenter(double);
 
