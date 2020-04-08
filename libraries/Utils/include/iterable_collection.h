@@ -2,13 +2,15 @@
 #define ITERABLE_COLLECTION_H
 #include <vector>
 #include <functional>
+#include <memory>
 
 template<typename T>
 class IterableCollection
 {
-	using Iterator = typename std::vector<T>::iterator;
+	using Element = typename std::shared_ptr<T>;
+	using Iterator = typename std::vector<Element>::iterator;
 protected: 
-	std::vector<T> collection;
+	std::vector<Element> collection;
 public:
 	IterableCollection<T>() : collection() {}
 
@@ -19,7 +21,7 @@ public:
 
 	const IterableCollection<T> push(const T& p)
 	{
-		collection.emplace_back(p);
+		collection.emplace_back(std::make_shared<T>(p));
 		
 		return *this;
 	}

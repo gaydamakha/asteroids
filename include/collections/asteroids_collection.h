@@ -4,6 +4,6 @@
 #include <Utils.h>
 #include "entities/asteroid.h"
 
-using AsteroidsCollection = IterableCollection<std::shared_ptr<Asteroid>>;
+using AsteroidsCollection = IterableCollection<Asteroid>;
 
 #endif

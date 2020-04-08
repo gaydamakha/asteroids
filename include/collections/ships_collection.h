@@ -4,6 +4,6 @@
 #include <Utils.h>
 #include "entities/ship.h"
 
-using ShipsCollection = IterableCollection<std::shared_ptr<Ship>>;
+using ShipsCollection = IterableCollection<Ship>;
 
 #endif

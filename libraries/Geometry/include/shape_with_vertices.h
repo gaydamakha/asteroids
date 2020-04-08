@@ -6,7 +6,7 @@
 #include "vec2.h"
 #include "iterable_shape.h"
 
-using Vertice = std::shared_ptr<Vec2d>;
+using Vertice = Vec2d;
 using VerticesArray = IterableCollection<Vertice>;
 
 class ShapeWithVertices: public IterableShape<Vertice>
@@ -16,7 +16,7 @@ protected:
 public:
 	void addVertice(const Vec2d& v)
 	{
-		vertices.push(std::make_shared<Vec2d>(v));
+		vertices.push(Vec2d(v));
 	}
 
 	const VerticesArray getVertices() const
