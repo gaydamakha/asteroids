@@ -4,18 +4,21 @@
 #include <Geometry.h>
 #include "moving_polygone_particle.h"
 
-class Ship: public MovingPolygoneParticle
+class Ship : public MovingPolygoneParticle
 {
 protected:
 	double angle;
 	double acc;
+	const double shape_radius;
+
 public:
 	Ship(
-		const Vec2d& position,
-		const Color& color,
-		const Vec2d& velocity,
-		const Polygone& shape,
-		double angle_jerk,
+		const Vec2d &position,
+		const Color &color,
+		const Vec2d &velocity,
+		const Polygone &shape,
+		double angle_acc,
+		double radius,
 		double init_angle,
 		double acc);
 
@@ -29,10 +32,9 @@ public:
 
 	void rotateRight();
 
-	inline double getAngle()
-	{
-		return angle;
-	}
+	inline double getAngle() { return angle; }
+
+	inline const double getRadius() const { return shape_radius; }
 
 	void setAngle(double);
 };

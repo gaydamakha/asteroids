@@ -55,4 +55,21 @@ Vec2<T> normalize(Vec2<T> v)
     return v / v.getLength();
 }
 
+template<typename T>
+T Vec2<T>::getDistance(const Vec2<T>& v)
+{
+    T xdif = v.getX() - x;
+    T ydif = v.getY() - y;
+    return sqrt(xdif*xdif + ydif*ydif);
+}
+
+
+template<typename T>
+T getDistance(const Vec2<T>& v1, const Vec2<T>& v2)
+{
+    T xdif = v1.getX() - v2.getX();
+    T ydif = v1.gety() - v2.getY();
+    return sqrt(xdif*xdif + ydif*ydif);
+}
+
 #endif

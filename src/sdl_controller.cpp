@@ -19,6 +19,8 @@ void SdlController::run()
 	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::MEDIUM);
 	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::SMALL);
 
+	// model->splitFirstAsteroid();
+
 	Timer* timer = new SdlTimer();
 
 	while (!quit)
@@ -44,7 +46,6 @@ void SdlController::run()
 			model->accelerateShips();
 		if (keyboardState[SDL_SCANCODE_SPACE])
 			// TODO: launch a bullet
-			model->resetShips(init_angle);
 		if (keyboardState[SDL_SCANCODE_ESCAPE])
 			quit = true;
 

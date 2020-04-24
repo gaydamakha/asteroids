@@ -7,6 +7,7 @@ const std::map<AsteroidSize, AsteroidDesc> GameModel::asteroids_config = {
     {AsteroidSize::MEDIUM, {20, 32, 20, 25, 7}},
     {AsteroidSize::SMALL, {10, 20, 15, 25, 7}}};
 
+//TODO: take a config entity in parameters instead
 GameModel::GameModel(unsigned game_width, unsigned game_height)
 {
     this->game_width = game_width;
@@ -22,30 +23,6 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
 
 void GameModel::update(double seconds)
 {
-    for (auto &asteroid : asteroids)
-    {
-        asteroid->step(seconds);
-        auto position = asteroid->getPosition();
-        auto x = position.getX();
-        auto y = position.getY();
-        if (x < 0)
-        {
-            asteroid->setPosition(Vec2d(game_width, y));
-        }
-        else if (x > game_width)
-        {
-            asteroid->setPosition(Vec2d(0., position.getY()));
-        }
-        if (y < 0)
-        {
-            asteroid->setPosition(Vec2d(x, game_height));
-        }
-        else if (y > game_height)
-        {
-            asteroid->setPosition(Vec2d(x, 0.));
-        }
-    }
-
     for (auto &ship : ships)
     {
         ship->step(seconds);
@@ -69,9 +46,68 @@ void GameModel::update(double seconds)
         {
             ship->setPosition(Vec2d(x, 0.));
         }
+        for (auto a = asteroids.begin(); a < asteroids.end(); a++)
+        {
+            auto asteroid = *a;
+            asteroid->step(seconds);
+            auto position = asteroid->getPosition();
+            auto x = position.getX();
+            auto y = position.getY();
+            if (x < 0)
+            {
+                asteroid->setPosition(Vec2d(game_width, y));
+            }
+            else if (x > game_width)
+            {
+                asteroid->setPosition(Vec2d(0., position.getY()));
+            }
+            if (y < 0)
+            {
+                asteroid->setPosition(Vec2d(x, game_height));
+            }
+            else if (y > game_height)
+            {
+                asteroid->setPosition(Vec2d(x, 0.));
+            }
+            //Check the collision - stupid way
+            double arad = asteroid->getRadius();
+            double srad = ship->getRadius();
+            double distance = asteroid->getPosition().getDistance(ship->getPosition());
+            if (distance <= arad + srad)
+            {
+                // Split asteroids in 2 parts
+                Vec2d a_position = asteroid->getPosition();
+                Vec2d a_velocity = asteroid->getVelocity();
+                AsteroidSize a_size = asteroid->getSize();
+                auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
+                switch (a_size)
+                {
+                case AsteroidSize::BIG:
+                    //create 2 medium asteroids
+                    new_asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), 90.), angle_gen(), asteroids_config.at(AsteroidSize::MEDIUM), AsteroidSize::MEDIUM));
+                    new_asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), -90.), angle_gen(), asteroids_config.at(AsteroidSize::MEDIUM), AsteroidSize::MEDIUM));
+                    break;
+                case AsteroidSize::MEDIUM:
+                    //Create 2 small asteroids
+                    new_asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), 90.), angle_gen(), asteroids_config.at(AsteroidSize::SMALL), AsteroidSize::SMALL));
+                    new_asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), -90.), angle_gen(), asteroids_config.at(AsteroidSize::SMALL), AsteroidSize::SMALL));
+                    break;
+                case AsteroidSize::SMALL:
+                    //Do nothing
+                    break;
+                }
+                asteroid->broke();
+                this->resetShip(*ship);
+            }
+        }
     }
+    //Remove broken asteroid
+    // asteroids.filter([](std::shared_ptr<Asteroid> a) -> bool { return a->isBroken(); });   
+    // //Push new asteroids created while breaking others
+    // asteroids.move_from(new_asteroids);
 }
 
+//TODO: make private
 void GameModel::addRandomAsteroidWithRandomVelocity(AsteroidSize size)
 {
     Vec2d position = Vec2_aleagen(0., (double)game_width, 0., (double)game_height);
@@ -82,18 +118,15 @@ void GameModel::addRandomAsteroidWithRandomVelocity(AsteroidSize size)
     } while (velocity.getX() == 0 && velocity.getY() == 0);
 
     auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
-    AsteroidDesc desc = asteroids_config.at(size);
-    //TODO: is there another way to pass "desc"?
-    Polygone shape = *PolygoneFactory::createRandomPolygone(position, desc[0], desc[1], desc[2], desc[3], desc[4]);
-    asteroids.push(Asteroid(position, GREEN, velocity, shape, angle_gen(), desc[1]));
+    asteroids.push(*AsteroidFactory::create(position, GREEN, velocity.rotate(Vec2d(0., 0.), 90.), angle_gen(), asteroids_config.at(size), size));
 }
 
 void GameModel::addShipAtCenter(double init_angle)
 {
     Vec2d position(game_width / 2, game_height / 2);
     Vec2d velocity(0., 0.);
-    Polygone shape = *PolygoneFactory::createPolygone(position, Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22));
-    ships.push(Ship(position, GREEN, velocity, shape, ship_angle_acc, init_angle, ship_acc));
+    Polygone shape = *PolygoneFactory::create(position, Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22));
+    ships.push(Ship(position, GREEN, velocity, shape, ship_angle_acc, 22, init_angle, ship_acc));
 }
 
 void GameModel::accelerateShips()
@@ -120,15 +153,39 @@ void GameModel::rotateShipsRight()
     }
 }
 
-void GameModel::resetShips(double angle)
+void GameModel::resetShip(Ship &ship)
 {
     Vec2d center(game_width / 2, game_height / 2);
-    for (auto &ship : ships)
+    //TODO: when points system will be added, remove one life-point
+    ship.setVelocity(Vec2d(0., 0.));
+    ship.setPosition(center);
+    //TODO:uncomment it when the view will be capable to rotate the ship
+    // ship->setAngle(angle);
+}
+
+//TODO: move it somewhere?
+void GameModel::splitAsteroid()
+{
+    auto asteroid = asteroids.begin();
+    Vec2d a_position = (*asteroid)->getPosition();
+    Vec2d a_velocity = (*asteroid)->getVelocity();
+    AsteroidSize a_size = (*asteroid)->getSize();
+    asteroids.erase(asteroid);
+    auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
+    switch (a_size)
     {
-        //TODO: when points system will be added, remove one life-point
-        ship->setVelocity(Vec2d(0., 0.));
-        ship->setPosition(center);
-        //TODO:uncomment it when the view will be capable to rotate the ship
-        // ship->setAngle(angle);
+    case AsteroidSize::BIG:
+        //create 2 medium asteroids
+        asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), 90.), angle_gen(), asteroids_config.at(AsteroidSize::MEDIUM), AsteroidSize::MEDIUM));
+        asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), -90.), angle_gen(), asteroids_config.at(AsteroidSize::MEDIUM), AsteroidSize::MEDIUM));
+        break;
+    case AsteroidSize::MEDIUM:
+        //Create 2 small asteroids
+        asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), 90.), angle_gen(), asteroids_config.at(AsteroidSize::SMALL), AsteroidSize::SMALL));
+        asteroids.push(*AsteroidFactory::create(a_position, GREEN, a_velocity.rotate(Vec2d(0., 0.), -90.), angle_gen(), asteroids_config.at(AsteroidSize::SMALL), AsteroidSize::SMALL));
+        break;
+    case AsteroidSize::SMALL:
+        //Do nothing
+        break;
     }
 }

@@ -1,7 +1,7 @@
 #include <Utils.h>
 #include <Geometry.h>
 
-Polygone *PolygoneFactory::createRandomPolygone(
+Polygone *PolygoneFactory::createRandom(
 	const Vec2d &position,	//Position
 	float min_radius,		//Minimum length of a vector from the center of the polygone
 	float max_radius,		//Maximum length of a vector from the center of the polygone

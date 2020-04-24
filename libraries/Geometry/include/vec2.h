@@ -183,6 +183,8 @@ public:
 
 	// Normalize the vector (make his length equal to 1)
 	Vec2<T> normalize();
+
+	T getDistance(const Vec2<T>&);
 };
 
 // Vec2<T> vec2;

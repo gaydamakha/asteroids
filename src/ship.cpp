@@ -8,12 +8,13 @@ Ship::Ship(
 	const Vec2d &velocity,
 	const Polygone &shape,
 	double angle_acc,
+	double radius,
 	double init_angle,
 	double acc) : MovingPolygoneParticle(position,
 										 color,
 										 velocity,
 										 shape,
-										 angle_acc)
+										 angle_acc), shape_radius(radius)
 {
 	this->acc = acc;
 	this->angle = init_angle;

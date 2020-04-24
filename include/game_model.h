@@ -4,15 +4,7 @@
 #include <bits/stdc++.h>
 #include "collections/asteroids_collection.h"
 #include "collections/ships_collection.h"
-
-enum class AsteroidSize
-{
-	BIG,
-	MEDIUM,
-	SMALL
-};
-
-using AsteroidDesc = std::array<double, 5>;
+#include "factories/asteroid_factory.h"
 
 class GameModel
 {
@@ -31,6 +23,7 @@ class GameModel
 	double env_resistence;
 
 	AsteroidsCollection asteroids;
+	AsteroidsCollection new_asteroids;
 	// A collection of ships to anticipate multiplayer
 	ShipsCollection ships;
 	//TODO: add bullets
@@ -52,17 +45,14 @@ public:
 
 	void rotateShipsRight();
 
-	void resetShips(double);
+	void resetShip(Ship&);
 
-	inline AsteroidsCollection getAsteroids() const
-	{
-		return asteroids;
-	}
+	inline AsteroidsCollection getAsteroids() const { return asteroids; }
 
-	inline ShipsCollection getShips() const
-	{
-		return ships;
-	}
+	inline ShipsCollection getShips() const { return ships; }
+
+	//Temp methods
+	void splitAsteroid();
 };
 
 #endif
