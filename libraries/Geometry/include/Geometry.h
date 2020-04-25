@@ -7,5 +7,6 @@
 #include "shape_with_vertices.h"
 #include "vec2.h"
 #include "trigonometry.h"
+#include "circle.h"
 
 #endif

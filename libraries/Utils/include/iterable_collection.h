@@ -35,7 +35,7 @@ public:
 		return *this;
 	}
 
-	const IterableCollection<T> move_from(IterableCollection<T> &ic)
+	const IterableCollection<T> moveFrom(IterableCollection<T> &ic)
 	{
 		collection.insert(collection.end(), std::make_move_iterator(ic.begin()), std::make_move_iterator(ic.end()));
 		ic.clear();

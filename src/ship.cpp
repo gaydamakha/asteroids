@@ -38,7 +38,7 @@ void Ship::slow(double k)
 //TODO: add angle velocity
 void Ship::rotateLeft()
 {
-	shape.rotate(position, -angle_acc);
+	polygone.rotate(position, -angle_acc);
 	angle -= angle_acc;
 	if (angle < 0)
 	{
@@ -48,7 +48,7 @@ void Ship::rotateLeft()
 
 void Ship::rotateRight()
 {
-	shape.rotate(position, angle_acc);
+	polygone.rotate(position, angle_acc);
 	angle = std::fmod(angle + angle_acc, 360);
 }
 

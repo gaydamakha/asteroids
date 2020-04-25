@@ -13,27 +13,24 @@ void SdlController::run()
 
 	double init_angle = 270.0;
 
+	//TODO: remove it and pass a config instead (in the main method)
 	model->addShipAtCenter(init_angle);
-
-	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::BIG);
-	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::MEDIUM);
-	model->addRandomAsteroidWithRandomVelocity(AsteroidSize::SMALL);
+	model->addAsteroid(AsteroidSize::BIG);
+	model->addAsteroid(AsteroidSize::MEDIUM);
+	model->addAsteroid(AsteroidSize::SMALL);
 
 	// model->splitFirstAsteroid();
 
-	Timer* timer = new SdlTimer();
+	Timer *timer = new SdlTimer();
 
 	while (!quit)
 	{
 		//Get number of seconds passed in the previous loop (0 if it's the first iteration)
 		double delta = timer->getDelta();
-
 		//Clear the view
 		view->clear();
-
 		//Update internal state of the model
 		model->update(delta);
-
 		//Handle the events
 		//TODO: write and call this->handleKeyboardState();
 		keyboardState = SDL_GetKeyboardState(NULL);
@@ -46,8 +43,8 @@ void SdlController::run()
 			model->accelerateShips();
 		if (keyboardState[SDL_SCANCODE_SPACE])
 			// TODO: launch a bullet
-		if (keyboardState[SDL_SCANCODE_ESCAPE])
-			quit = true;
+			if (keyboardState[SDL_SCANCODE_ESCAPE])
+				quit = true;
 
 		while (SDL_PollEvent(&event))
 		{
@@ -58,7 +55,7 @@ void SdlController::run()
 				break;
 			}
 		}
-
+		
 		//Show all the asteroids
 		for (auto &asteroid : model->getAsteroids())
 		{

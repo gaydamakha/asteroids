@@ -29,10 +29,10 @@ void SdlView::update()
 
 void SdlView::showAsteroid(const Asteroid& a) const
 {
-	drawer->drawPolygone(a.getShape(), a.getColor());
+	drawer->drawPolygone(a.getPolygone(), a.getColor());
 }
 
 void SdlView::showShip(const Ship& s) const
 {
-	drawer->drawPolygone(s.getShape(), s.getColor());
+	drawer->drawPolygone(s.getPolygone(), s.getColor());
 }

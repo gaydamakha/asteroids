@@ -27,50 +27,15 @@ void GameModel::update(double seconds)
     {
         ship->step(seconds);
         ship->slow(env_resistence);
-        auto position = ship->getPosition();
-        auto x = position.getX();
-        auto y = position.getY();
-        if (x < 0)
-        {
-            ship->setPosition(Vec2d(game_width, y));
-        }
-        else if (x > game_width)
-        {
-            ship->setPosition(Vec2d(0., position.getY()));
-        }
-        if (y < 0)
-        {
-            ship->setPosition(Vec2d(x, game_height));
-        }
-        else if (y > game_height)
-        {
-            ship->setPosition(Vec2d(x, 0.));
-        }
+        this->checkBorders(*ship);
         for (auto a = asteroids.begin(); a < asteroids.end(); a++)
         {
             auto asteroid = *a;
             asteroid->step(seconds);
-            auto position = asteroid->getPosition();
-            auto x = position.getX();
-            auto y = position.getY();
-            if (x < 0)
-            {
-                asteroid->setPosition(Vec2d(game_width, y));
-            }
-            else if (x > game_width)
-            {
-                asteroid->setPosition(Vec2d(0., position.getY()));
-            }
-            if (y < 0)
-            {
-                asteroid->setPosition(Vec2d(x, game_height));
-            }
-            else if (y > game_height)
-            {
-                asteroid->setPosition(Vec2d(x, 0.));
-            }
+            this->checkBorders(*asteroid);
             //Check the collision - stupid way
-            double arad = asteroid->getRadius();
+            auto coll = std::static_pointer_cast<Circle>(asteroid->getCollider());
+            double arad = coll->getRadius();
             double srad = ship->getRadius();
             double distance = asteroid->getPosition().getDistance(ship->getPosition());
             if (distance <= arad + srad)
@@ -102,13 +67,36 @@ void GameModel::update(double seconds)
         }
     }
     //Remove broken asteroid
-    // asteroids.filter([](std::shared_ptr<Asteroid> a) -> bool { return a->isBroken(); });   
-    // //Push new asteroids created while breaking others
-    // asteroids.move_from(new_asteroids);
+    asteroids.filter([](std::shared_ptr<Asteroid> a) -> bool { return a->isBroken(); });
+    //Push new asteroids created while breaking others
+    asteroids.moveFrom(new_asteroids);
+}
+
+void GameModel::checkBorders(MovingParticle &p) const
+{
+    auto position = p.getPosition();
+    auto x = position.getX();
+    auto y = position.getY();
+    if (x < 0)
+    {
+        p.setPosition(Vec2d(game_width, y));
+    }
+    else if (x > game_width)
+    {
+        p.setPosition(Vec2d(0., position.getY()));
+    }
+    if (y < 0)
+    {
+        p.setPosition(Vec2d(x, game_height));
+    }
+    else if (y > game_height)
+    {
+        p.setPosition(Vec2d(x, 0.));
+    }
 }
 
 //TODO: make private
-void GameModel::addRandomAsteroidWithRandomVelocity(AsteroidSize size)
+void GameModel::addAsteroid(AsteroidSize size)
 {
     Vec2d position = Vec2_aleagen(0., (double)game_width, 0., (double)game_height);
     Vec2d velocity;

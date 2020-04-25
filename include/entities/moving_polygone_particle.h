@@ -7,7 +7,7 @@
 class MovingPolygoneParticle: public MovingParticle
 {
 protected:
-	Polygone shape;
+	Polygone polygone;
 	double angle_acc;
 public:
 	MovingPolygoneParticle(
@@ -19,10 +19,7 @@ public:
 
 	~MovingPolygoneParticle();
 	
-	inline Polygone getShape() const
-	{
-		return shape;
-	}
+	inline const Polygone getPolygone() const { return polygone; }
 
 	void setPosition(Vec2d);
 

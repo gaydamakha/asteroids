@@ -8,8 +8,8 @@ Asteroid::Asteroid(
 	const Vec2d &velocity,
 	const Polygone &shape,
 	double angle_acc,
-	double radius,
-	AsteroidSize size) : MovingPolygoneParticle(position, color, velocity, shape, angle_acc), shape_radius(radius), size(size)
+	const std::shared_ptr<Shape> collider,
+	AsteroidSize size) : MovingPolygoneParticle(position, color, velocity, shape, angle_acc), ShapeViewGameEntity(collider), size(size)
 {
 	broken = false;
 }

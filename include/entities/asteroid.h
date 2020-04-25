@@ -3,6 +3,7 @@
 
 #include <Geometry.h>
 #include "moving_polygone_particle.h"
+#include "shape_view_game_entity.h"
 
 enum class AsteroidSize
 {
@@ -11,10 +12,8 @@ enum class AsteroidSize
 	SMALL
 };
 
-class Asteroid : public MovingPolygoneParticle
+class Asteroid : public MovingPolygoneParticle, public ShapeViewGameEntity
 {
-	//TODO: remove it
-	const double shape_radius;
 	const AsteroidSize size;
 	bool broken;
 
@@ -24,7 +23,7 @@ public:
 			 const Vec2d &velocity,
 			 const Polygone &shape,
 			 double angle_acc,
-			 double radius,
+			 const std::shared_ptr<Shape> collider,
 			 AsteroidSize size);
 
 	void step(double);
@@ -36,7 +35,7 @@ public:
 	//Once asteroid is broken, it can not be restored
 	inline void broke() { broken = true; }
 
-	inline const double getRadius() const { return shape_radius; }
+	inline const Shape getShape() const { return polygone; }
 };
 
 #endif

@@ -35,7 +35,7 @@ public:
 
 	void update(double);
 
-	void addRandomAsteroidWithRandomVelocity(AsteroidSize);
+	void addAsteroid(AsteroidSize);
 
 	void addShipAtCenter(double);
 
@@ -45,8 +45,12 @@ public:
 
 	void rotateShipsRight();
 
-	void resetShip(Ship&);
+private:
+	void resetShip(Ship &);
 
+	void checkBorders(MovingParticle &) const;
+	
+public:
 	inline AsteroidsCollection getAsteroids() const { return asteroids; }
 
 	inline ShipsCollection getShips() const { return ships; }
