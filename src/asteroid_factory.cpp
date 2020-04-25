@@ -10,5 +10,5 @@ Asteroid* AsteroidFactory::create(
     const AsteroidSize& size)
 {
     auto shape = *PolygoneFactory::createRandom(position, desc[0], desc[1], desc[2], desc[3], desc[4]);
-    return new Asteroid(position, color, velocity, shape, angle, std::make_shared<Circle>((desc[0] + desc[1])/2), size);
+    return new Asteroid(position, color, velocity, shape, angle, (desc[0] + desc[1])/2, size);
 }

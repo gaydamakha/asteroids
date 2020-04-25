@@ -12,18 +12,18 @@ enum class AsteroidSize
 	SMALL
 };
 
-class Asteroid : public MovingPolygoneParticle, public ShapeViewGameEntity
+class Asteroid : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity
 {
 	const AsteroidSize size;
 	bool broken;
 
 public:
-	Asteroid(const Vec2d &position,
+	Asteroid(const Vec2d &coords,
 			 const Color &color,
 			 const Vec2d &velocity,
 			 const Polygone &shape,
 			 double angle_acc,
-			 const std::shared_ptr<Shape> collider,
+			 double rad,
 			 AsteroidSize size);
 
 	void step(double);

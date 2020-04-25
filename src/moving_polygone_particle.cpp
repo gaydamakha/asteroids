@@ -27,12 +27,12 @@ void MovingPolygoneParticle::step(double s)
 
 void MovingPolygoneParticle::rotateShape(double s)
 {
-	polygone.rotate(position, angle_acc * s);	
+	polygone.rotate(coords, angle_acc * s);	
 }
 
-void MovingPolygoneParticle::setPosition(Vec2d p)
+void MovingPolygoneParticle::setCoords(Vec2d p)
 {
-	Vec2d delta = p - position;
-	position = p;
+	Vec2d delta = p - coords;
+	coords = p;
 	polygone.translate(delta);
 }

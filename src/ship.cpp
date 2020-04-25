@@ -14,7 +14,7 @@ Ship::Ship(
 										 color,
 										 velocity,
 										 shape,
-										 angle_acc), shape_radius(radius)
+										 angle_acc), CircleCollider(position, radius)
 {
 	this->acc = acc;
 	this->angle = init_angle;
@@ -23,6 +23,8 @@ Ship::Ship(
 void Ship::step(double s)
 {
 	MovingPolygoneParticle::step(s);
+	// Update collider's position
+	this->setPosition(coords);
 }
 
 void Ship::accelerate()
@@ -38,7 +40,7 @@ void Ship::slow(double k)
 //TODO: add angle velocity
 void Ship::rotateLeft()
 {
-	polygone.rotate(position, -angle_acc);
+	polygone.rotate(coords, -angle_acc);
 	angle -= angle_acc;
 	if (angle < 0)
 	{
@@ -48,7 +50,7 @@ void Ship::rotateLeft()
 
 void Ship::rotateRight()
 {
-	polygone.rotate(position, angle_acc);
+	polygone.rotate(coords, angle_acc);
 	angle = std::fmod(angle + angle_acc, 360);
 }
 

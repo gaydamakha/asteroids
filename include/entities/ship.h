@@ -2,18 +2,18 @@
 #define SHIP_H
 
 #include <Geometry.h>
+#include "shape_view_game_entity.h"
 #include "moving_polygone_particle.h"
 
-class Ship : public MovingPolygoneParticle
+class Ship : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity
 {
 protected:
 	double angle;
 	double acc;
-	const double shape_radius;
 
 public:
 	Ship(
-		const Vec2d &position,
+		const Vec2d &coords,
 		const Color &color,
 		const Vec2d &velocity,
 		const Polygone &shape,
@@ -34,9 +34,9 @@ public:
 
 	inline double getAngle() { return angle; }
 
-	inline const double getRadius() const { return shape_radius; }
-
 	void setAngle(double);
+
+	inline const Shape getShape() const { return polygone; }
 };
 
 #endif

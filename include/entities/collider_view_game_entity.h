@@ -7,7 +7,6 @@
 class ColliderViewGameEntity : public GameEntity
 {
 public:
-    ShapeViewGameEntity(const std::shared_ptr<Shape> collider): GameEntity(collider) {}
     inline const bool colliderAsView() const { return true; }
     inline const bool shapeAsView() const { return false; }
 };

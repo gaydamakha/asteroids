@@ -33,15 +33,12 @@ void GameModel::update(double seconds)
             auto asteroid = *a;
             asteroid->step(seconds);
             this->checkBorders(*asteroid);
-            //Check the collision - stupid way
-            auto coll = std::static_pointer_cast<Circle>(asteroid->getCollider());
-            double arad = coll->getRadius();
-            double srad = ship->getRadius();
-            double distance = asteroid->getPosition().getDistance(ship->getPosition());
-            if (distance <= arad + srad)
+
+            //Check if ship is crashed into asteroid
+            if (asteroid->isCollision(*ship))
             {
                 // Split asteroids in 2 parts
-                Vec2d a_position = asteroid->getPosition();
+                Vec2d a_position = asteroid->getCoords();
                 Vec2d a_velocity = asteroid->getVelocity();
                 AsteroidSize a_size = asteroid->getSize();
                 auto angle_gen = alea_generator(-max_astr_angle_vel, max_astr_angle_vel);
@@ -74,24 +71,24 @@ void GameModel::update(double seconds)
 
 void GameModel::checkBorders(MovingParticle &p) const
 {
-    auto position = p.getPosition();
+    auto position = p.getCoords();
     auto x = position.getX();
     auto y = position.getY();
     if (x < 0)
     {
-        p.setPosition(Vec2d(game_width, y));
+        p.setCoords(Vec2d(game_width, y));
     }
     else if (x > game_width)
     {
-        p.setPosition(Vec2d(0., position.getY()));
+        p.setCoords(Vec2d(0., position.getY()));
     }
     if (y < 0)
     {
-        p.setPosition(Vec2d(x, game_height));
+        p.setCoords(Vec2d(x, game_height));
     }
     else if (y > game_height)
     {
-        p.setPosition(Vec2d(x, 0.));
+        p.setCoords(Vec2d(x, 0.));
     }
 }
 
@@ -146,7 +143,7 @@ void GameModel::resetShip(Ship &ship)
     Vec2d center(game_width / 2, game_height / 2);
     //TODO: when points system will be added, remove one life-point
     ship.setVelocity(Vec2d(0., 0.));
-    ship.setPosition(center);
+    ship.setCoords(center);
     //TODO:uncomment it when the view will be capable to rotate the ship
     // ship->setAngle(angle);
 }
@@ -155,7 +152,7 @@ void GameModel::resetShip(Ship &ship)
 void GameModel::splitAsteroid()
 {
     auto asteroid = asteroids.begin();
-    Vec2d a_position = (*asteroid)->getPosition();
+    Vec2d a_position = (*asteroid)->getCoords();
     Vec2d a_velocity = (*asteroid)->getVelocity();
     AsteroidSize a_size = (*asteroid)->getSize();
     asteroids.erase(asteroid);

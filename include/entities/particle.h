@@ -6,29 +6,20 @@
 class Particle
 {
 protected:
-	Vec2d position;
+	Vec2d coords;
 	Color color;
 public:
-	Particle(const Vec2d& position, const Color& color)
+	Particle(const Vec2d& coords, const Color& color)
 	{
-		this->position = position;
+		this->coords = coords;
 		this->color = color;
 	}
 
-	inline Vec2d getPosition() const
-	{
-		return position;
-	}
+	inline Vec2d getCoords() const { return coords; }
 
-	virtual inline void setPosition(Vec2d p)
-	{
-		position = p;
-	}
+	virtual inline void setCoords(Vec2d p) { coords = p; }
 
-	inline Color getColor() const
-	{
-		return color;
-	}
+	inline Color getColor() const { return color; }
 
 	// Do nothing in this basic particle
 	virtual void step(double seconds) {};

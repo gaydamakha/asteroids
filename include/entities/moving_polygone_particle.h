@@ -11,7 +11,7 @@ protected:
 	double angle_acc;
 public:
 	MovingPolygoneParticle(
-		const Vec2d& position,
+		const Vec2d& coords,
 		const Color& color,
 		const Vec2d& velocity,
 		const Polygone& shape,
@@ -21,7 +21,7 @@ public:
 	
 	inline const Polygone getPolygone() const { return polygone; }
 
-	void setPosition(Vec2d);
+	void setCoords(Vec2d);
 
 	virtual void rotateShape(double);
 

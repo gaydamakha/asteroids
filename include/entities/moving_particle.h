@@ -9,9 +9,9 @@ protected:
 	Vec2d velocity;
 public:
 	MovingParticle(
-		const Vec2d& position,
+		const Vec2d& coords,
 		const Color& color,
-		const Vec2d& velocity): Particle(position, color)
+		const Vec2d& velocity): Particle(coords, color)
 	{
 		this->velocity = velocity;
 	}
@@ -29,7 +29,7 @@ public:
 	void step(double s)
 	{
 		// Velocity is px per second, so we multiply it by seconds
-		position += velocity * s;
+		coords += velocity * s;
 	}
 
 	virtual void accelerate(double angle, double acc)

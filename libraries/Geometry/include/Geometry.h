@@ -9,4 +9,7 @@
 #include "trigonometry.h"
 #include "circle.h"
 
+#include "collider.h"
+#include "circle_collider.h"
+
 #endif
