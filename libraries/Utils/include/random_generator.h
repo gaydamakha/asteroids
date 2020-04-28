@@ -42,7 +42,7 @@ class RandomGenerator<T, std::enable_if_t<std::is_integral_v<T>>>
 public:
 	RandomGenerator(T low, T high, unsigned seed) : dis(low, high), rnd(seed) {}
 
-	auto operator()() const
+	T operator()()
 	{
 		return dis(*rnd.getMt());
 	}

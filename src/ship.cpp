@@ -1,6 +1,7 @@
 #include <Geometry.h>
 #include "entities/ship.h"
 #include "entities/moving_polygone_particle.h"
+#include "entities/bullet.h"
 
 Ship::Ship(
 	const Vec2d &position,
@@ -10,14 +11,25 @@ Ship::Ship(
 	double angle_acc,
 	double radius,
 	double init_angle,
-	double acc) : MovingPolygoneParticle(position,
-										 color,
-										 velocity,
-										 shape,
-										 angle_acc), CircleCollider(position, radius)
+	double acc,
+	double bullets_cd,
+	double bullets_vel,
+	double bullets_size,
+	double bullets_ttl,
+	const Color &bullets_color) : MovingPolygoneParticle(position,
+														 color,
+														 velocity,
+														 shape,
+														 angle_acc),
+								  CircleCollider(position, radius)
 {
 	this->acc = acc;
 	this->angle = init_angle;
+	this->bullets_cd = bullets_cd;
+	this->bullets_vel = bullets_vel;
+	this->bullets_size = bullets_size;
+	this->bullets_ttl = bullets_ttl;
+	this->bullets_color = bullets_color;
 }
 
 void Ship::step(double s)
@@ -58,6 +70,28 @@ void Ship::setAngle(double a)
 {
 	double delta = a - angle;
 	//TODO: rotate the shape (if it will be still in the ship)
-	// shape.rotate(position, delta);
+	polygone.rotate(coords, delta);
 	angle = a;
+}
+
+BulletsCollection Ship::shoot(double timestamp)
+{
+	BulletsCollection b;
+	//Don't fire unless cooldown period has expired
+	if (timestamp - last_bullet_time < bullets_cd)
+	{
+		return b;
+	}
+
+	last_bullet_time = timestamp;
+	//Direction is the angle of the ship
+	double rotangle = angle - 90;
+	if (rotangle < 0)
+	{
+		rotangle += 360;
+	}
+	Vec2d vel = Vec2d(0., bullets_vel).rotate(rotangle);
+	//create one new bullet at the position of the ship
+	b.push(Bullet(position, bullets_color, vel, bullets_size, bullets_ttl, timestamp));
+	return b;
 }

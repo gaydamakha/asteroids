@@ -21,3 +21,14 @@ void SdlDrawer::drawLineF(double x1, double y1, double x2, double y2, const Colo
 	setDrawColor(color);
 	SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
 }
+
+void SdlDrawer::drawSquare(double side, const Vec2d &position, const Color &color) const
+{
+	setDrawColor(color);
+	SDL_FRect rect;
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.h = side;
+	rect.w = side;
+	SDL_RenderFillRectF(renderer, &rect);
+}

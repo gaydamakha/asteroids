@@ -179,6 +179,8 @@ public:
 		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
 	}
 
+	Vec2<T> rotate(double rotangle);
+
 	Vec2<T> rotate(const Vec2<T>& center, double rotangle);
 
 	// Normalize the vector (make his length equal to 1)

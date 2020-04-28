@@ -11,6 +11,7 @@ protected:
 
 public:
     Collider(const Vec2d &position, const std::shared_ptr<Shape> s) : shape(s) { this->position = position; }
+    
     virtual const bool isCollision(const Collider &) = 0;
 
     inline const std::shared_ptr<Shape> getShape() const { return shape; }

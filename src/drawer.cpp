@@ -17,5 +17,3 @@ void Drawer::drawPolygone(const Polygone& polygone, const Color& color) const
 	auto first = **vertices.begin();
 	drawLineF(last.getX(), last.getY(), first.getX(), first.getY());
 }
-
-

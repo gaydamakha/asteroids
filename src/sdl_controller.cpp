@@ -11,40 +11,33 @@ void SdlController::run()
 
 	//TODO: write it in config entity (sort of communication between Model and Controller(Adapter pattern?))
 
-	double init_angle = 270.0;
-
 	//TODO: remove it and pass a config instead (in the main method)
-	model->addShipAtCenter(init_angle);
+	model->addShipAtCenter();
 	model->addAsteroid(AsteroidSize::BIG);
-	model->addAsteroid(AsteroidSize::MEDIUM);
-	model->addAsteroid(AsteroidSize::SMALL);
-
-	// model->splitFirstAsteroid();
-
-	Timer *timer = new SdlTimer();
+	model->addAsteroid(AsteroidSize::BIG);
+	model->addAsteroid(AsteroidSize::BIG);
 
 	while (!quit)
 	{
-		//Get number of seconds passed in the previous loop (0 if it's the first iteration)
-		double delta = timer->getDelta();
 		//Clear the view
 		view->clear();
 		//Update internal state of the model
-		model->update(delta);
+		model->update();
 		//Handle the events
 		//TODO: write and call this->handleKeyboardState();
 		keyboardState = SDL_GetKeyboardState(NULL);
 
 		if (keyboardState[SDL_SCANCODE_LEFT])
-			model->rotateShipsLeft();
+			model->rotateShipLeft();
 		if (keyboardState[SDL_SCANCODE_RIGHT])
-			model->rotateShipsRight();
+			model->rotateShipRight();
 		if (keyboardState[SDL_SCANCODE_UP])
-			model->accelerateShips();
+			model->accelerateShip();
 		if (keyboardState[SDL_SCANCODE_SPACE])
 			// TODO: launch a bullet
-			if (keyboardState[SDL_SCANCODE_ESCAPE])
-				quit = true;
+			model->shoot();
+		if (keyboardState[SDL_SCANCODE_ESCAPE])
+			quit = true;
 
 		while (SDL_PollEvent(&event))
 		{
@@ -62,13 +55,15 @@ void SdlController::run()
 			view->showAsteroid(*asteroid);
 		}
 
-		//Show all the ships
-		for (auto &ship : model->getShips())
+		//Show the ship
+		view->showShip(model->getShip());
+
+		// //Show all the bullets
+		for (auto &bullet: model->getBullets())
 		{
-			view->showShip(*ship);
+			view->showBullet(*bullet);
 		}
 
-		//TODO: show all the bullets
 		view->update();
 	}
 	SDL_Quit();

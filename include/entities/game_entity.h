@@ -8,6 +8,7 @@ class GameEntity
 public:
     virtual const bool colliderAsView() const = 0;
     virtual const bool shapeAsView() const = 0;
+    virtual bool toRemove(double) = 0;
 };
 
 #endif

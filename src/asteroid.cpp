@@ -1,6 +1,12 @@
 #include <Geometry.h>
 #include "entities/asteroid.h"
-#include "entities/moving_polygone_particle.h"
+
+//Ordering is made on purpose to pass from one config to another while breaking
+
+const std::map<AsteroidSize, AsteroidDesc> Asteroid::props = {
+	{AsteroidSize::BIG, {30, 50, 20, 25, 7}},
+	{AsteroidSize::MEDIUM, {20, 32, 20, 25, 7}},
+	{AsteroidSize::SMALL, {10, 20, 15, 25, 7}}};
 
 Asteroid::Asteroid(
 	const Vec2d &position,

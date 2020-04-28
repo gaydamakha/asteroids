@@ -7,6 +7,7 @@
 class SdlTimer : public Timer
 {
     Uint32 prev_time;
+
 public:
     SdlTimer()
     {
@@ -19,7 +20,12 @@ public:
         Uint32 dif = cur - prev_time;
         prev_time = cur;
         // Divide by 1000 because SDl_GetTicks() returns milliseconds
-        return (double) (dif) / 1000.0;
+        return (double)(dif) / 1000.0;
+    }
+
+    double getTimestamp() const
+    {
+        return (double)(SDL_GetTicks()) / 1000.0;
     }
 };
 

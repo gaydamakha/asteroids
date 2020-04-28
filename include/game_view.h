@@ -15,5 +15,7 @@ public:
 	virtual void showAsteroid(const Asteroid& a) const = 0;
 	
 	virtual void showShip(const Ship& s) const = 0;
+
+	virtual void showBullet(const Bullet &b) const = 0;
 };
 #endif // !GAME_VIEW_H

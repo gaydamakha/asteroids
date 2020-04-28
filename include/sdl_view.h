@@ -26,6 +26,8 @@ public:
 	void showAsteroid(const Asteroid& a) const;
 
 	void showShip(const Ship& s) const;
+
+	void showBullet(const Bullet &b) const;
 };
 
 #endif

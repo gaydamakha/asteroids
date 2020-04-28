@@ -7,15 +7,16 @@ class MovingParticle : public Particle
 {
 protected:
 	Vec2d velocity;
+
 public:
 	MovingParticle(
-		const Vec2d& coords,
-		const Color& color,
-		const Vec2d& velocity): Particle(coords, color)
+		const Vec2d &coords,
+		const Color &color,
+		const Vec2d &velocity) : Particle(coords, color)
 	{
 		this->velocity = velocity;
 	}
-	
+
 	inline Vec2d getVelocity() const
 	{
 		return velocity;
