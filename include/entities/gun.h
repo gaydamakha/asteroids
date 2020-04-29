@@ -9,7 +9,7 @@ struct GunConfig
     const double bullets_vel;
     const double bullets_ttl;
     const double cooldown;
-    const Color &bullets_color;
+    const Color bullets_color;
 };
 
 class Gun : public BulletsFactory
@@ -21,8 +21,9 @@ protected:
     const double &angle;
     const double cooldown;
     double last_bullet_time;
+
 public:
-    Gun(const Vec2d &, const double &, const GunConfig&);
+    Gun(const Vec2d &, const double &, const GunConfig &);
     BulletsCollection shoot(double);
 };
 

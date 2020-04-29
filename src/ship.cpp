@@ -1,28 +1,16 @@
-#include <Geometry.h>
 #include "entities/ship.h"
-#include "entities/moving_polygone_particle.h"
-#include "entities/bullet.h"
 
-Ship::Ship(
-	const Vec2d &position,
-	const Color &color,
-	const Vec2d &velocity,
-	const Polygone &shape,
-	double angle_acc,
-	double radius,
-	double init_angle,
-	double acc,
-	const GunConfig& gun_config) : MovingPolygoneParticle(position,
-														 color,
-														 velocity,
-														 shape,
-														 angle_acc),
-								  CircleCollider(position, radius), nose(polygone.getVertices()[0])
+Ship::Ship(const ShipConfig &c) : MovingPolygoneParticle(c.init_position,
+														 c.color,
+														 c.init_velocity,
+														 c.vertices,
+														 c.angle_acc),
+								  CircleCollider(c.init_position, c.radius), nose(polygone.getVertices()[0])
 {
-	this->acc = acc;
-	this->angle = init_angle;
+	this->acc = c.acc;
+	this->angle = c.init_angle;
 	// Put the gun at the position of the nose of the ship
-	this->gun = std::make_unique<Gun>(nose, angle, gun_config);
+	this->gun = std::make_unique<Gun>(nose, angle, c.gun_config);
 }
 
 void Ship::step(double s)

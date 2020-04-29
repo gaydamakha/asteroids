@@ -8,17 +8,24 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
 {
     this->game_width = game_width;
     this->game_height = game_height;
-    //TODO: fetch numbers from config entity
-    this->asteroids_factory = std::make_unique<AsteroidsFactory>(50.0, 50.0, 2, 2, GREEN);
-    //TODO: fetch numbers from config entity
+    //TODO: fetch this all from config entity
+    RandomPolygoneDesc desc1 = {30, 50, 20, 25, 7};
+    RandomPolygoneDesc desc2 = {20, 32, 20, 25, 7};
+    RandomPolygoneDesc desc3 = {10, 20, 15, 25, 7};
+    this->props = {
+        {AsteroidSize::BIG, {desc1, 50, 50, 2, 2, GREEN}},
+        {AsteroidSize::MEDIUM, {desc2, 50, 50, 2, 2, GREEN}},
+        {AsteroidSize::SMALL, {desc3, 50, 50, 0, 0, GREEN}}
+    };
+    this->asteroids_factory = std::make_unique<AsteroidsFactory>(this->props);
     this->ship_init_angle = 270.0;
-    this->ship_acc = 0.3;       // pixels/second per second
-    this->ship_angle_acc = 0.2; // Degrees per one rotation
-    this->bullet_cd = 0.5;      // seconds
-    this->bullets_vel = 350.;
-    this->bullets_ttl = 1.5;
-    this->bullets_size = 5.;
-    this->env_resistence = 0.0008;
+    this->ship_acc = 0.3;          // pixels/second per second
+    this->ship_angle_acc = 0.2;    // Degrees per one rotation
+    this->bullet_cd = 0.5;         // seconds
+    this->bullets_vel = 350.;      // pixels per second
+    this->bullets_ttl = 1.5;       // seconds
+    this->bullets_size = 5.;       // pixels
+    this->env_resistence = 0.0008; // pixels/second per second
     timer = std::make_unique<SdlTimer>();
 }
 
@@ -100,21 +107,14 @@ void GameModel::addAsteroid(AsteroidSize size)
 //TODO: make it private and called during config processing
 void GameModel::addShipAtCenter()
 {
+    //TODO: fetch init values from the config
     Vec2d position(game_width / 2, game_height / 2);
     Vec2d velocity(0., 0.);
-    Polygone shape = *PolygoneFactory::create(position, Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22));
     //TODO: fetch it from the global config
-    GunConfig config = { bullets_size, bullets_vel, bullets_ttl, bullet_cd, GREEN};
-    ship = std::make_shared<Ship>(
-        position,
-        GREEN,
-        velocity,
-        shape,
-        ship_angle_acc,
-        22,
-        ship_init_angle,
-        ship_acc,
-        config);
+    std::initializer_list<Vec2d> vertices = { Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22)};
+    GunConfig gc = {bullets_size, bullets_vel, bullets_ttl, bullet_cd, GREEN};
+    ShipConfig sc = {position, GREEN, velocity, vertices, ship_angle_acc, 22, ship_init_angle, ship_acc, gc};
+    ship = std::make_shared<Ship>(sc);
 }
 
 void GameModel::accelerateShip()

@@ -14,8 +14,8 @@ void SdlController::run()
 	//TODO: remove it and pass a config instead (in the main method)
 	model->addShipAtCenter();
 	model->addAsteroid(AsteroidSize::BIG);
-	model->addAsteroid(AsteroidSize::BIG);
-	model->addAsteroid(AsteroidSize::BIG);
+	model->addAsteroid(AsteroidSize::MEDIUM);
+	model->addAsteroid(AsteroidSize::SMALL);
 
 	while (!quit)
 	{

@@ -16,6 +16,15 @@ protected:
 public:
 	IterableCollection<T>() : collection() {}
 
+	//The use of delegating constructor
+	IterableCollection<T>(std::initializer_list<T> il) : IterableCollection<T>()
+	{
+		for (auto &el:il)
+		{
+			this->push(el);
+		}
+	}
+
 	~IterableCollection()
 	{
 		collection.clear();

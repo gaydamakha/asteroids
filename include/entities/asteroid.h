@@ -13,29 +13,18 @@ enum class AsteroidSize
 	SMALL
 };
 
-struct AsteroidDesc
-{
-	const double min_radius;
-	const double max_radius;
-	const double granularity;
-	const double min_angle_vary;
-	const double max_angle_vary;
-};
-
 class Asteroid : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity
 {
 	const AsteroidSize size;
 	bool broken;
 public:
-	static const std::map<AsteroidSize, AsteroidDesc> props;
-
-	Asteroid(const Vec2d &coords,
-			 const Color &color,
-			 const Vec2d &velocity,
-			 const Polygone &shape,
-			 double angle_acc,
-			 double rad,
-			 AsteroidSize size);
+	Asteroid(const Vec2d &,
+			 const Color &,
+			 const Vec2d &,
+			 const RandomPolygoneDesc&,
+			 double,
+			 double,
+			 AsteroidSize);
 
 	void step(double);
 

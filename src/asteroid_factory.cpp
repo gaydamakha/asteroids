@@ -1,41 +1,42 @@
 #include "factories/asteroids_factory.h"
 
-AsteroidsFactory::AsteroidsFactory(double max_vel, double max_angle_vel, unsigned min_nb_split, unsigned max_nb_split, const Color &color)
-{
-    this->max_vel = max_vel;
-    this->angle_vel_gen = std::make_unique<RandomGenerator<double>>(alea_generator(-max_angle_vel, max_angle_vel));
-    this->nb_split_gen = std::make_unique<RandomGenerator<int>>(alea_generator((int)min_nb_split, (int)max_nb_split));
-    this->color = color;
-}
+AsteroidsFactory::AsteroidsFactory(const AsteroidsProps& props) : props(props) {}
 
 std::shared_ptr<Asteroid> AsteroidsFactory::create(const Vec2d &position, const AsteroidSize &size) const
 {
+    AsteroidsFactoryDesc desc = props.at(size);
     Vec2d velocity;
     //generate non-zero velocity vector
     do
     {
-        velocity = Vec2_aleagen(-max_vel, max_vel, -max_vel, max_vel);
+        velocity = Vec2_aleagen(-desc.max_vel, desc.max_vel, -desc.max_vel, desc.max_vel);
     } while (velocity.getX() == 0 && velocity.getY() == 0);
-
-    AsteroidDesc desc = Asteroid::props.at(size);
-    auto shape = *PolygoneFactory::createRandom(position, desc.min_radius, desc.max_radius, desc.granularity, desc.min_angle_vary, desc.max_angle_vary);
-    return std::make_shared<Asteroid>(position, color, velocity, shape, (*angle_vel_gen)(), (desc.min_radius + desc.max_radius) / 2, size);
+    // auto shape = *PolygoneFactory::createRandom(desc.min_radius, desc.max_radius, desc.granularity, desc.min_angle_vary, desc.max_angle_vary);
+    // shape.translate(position);
+    RandomPolygoneDesc p_desc = desc.polygone_desc;
+    auto angle_vel_gen = alea_generator(-desc.max_angle_vel, desc.max_angle_vel);
+    return std::make_shared<Asteroid>(position, desc.color, velocity, p_desc, angle_vel_gen(), (p_desc.min_radius + p_desc.max_radius) / 2, size);
 }
 
 const AsteroidsCollection AsteroidsFactory::broke(Asteroid &a) const
 {
     a.broke();
     AsteroidsCollection parts;
+    //Get the old desc
+    auto old_props = props.find(a.getSize());
+    AsteroidsFactoryDesc old_desc = old_props->second;
     //Get the next desc
-    auto new_props = ++(Asteroid::props.find(a.getSize()));
-    if (new_props == Asteroid::props.end())
+    auto new_props = ++(old_props);
+    if (new_props == props.end())
     {
         //There is no more sizes in the props, the asteroid had the smallest size
         return parts;
     }
     AsteroidSize new_size = new_props->first;
-    AsteroidDesc new_desc = new_props->second;
-    for (unsigned i = 0; i < (unsigned)(*nb_split_gen)(); i++)
+
+    // Make a generator of random number of parts
+    int nb_split = (unsigned)alea_generator(old_desc.min_nb_split, old_desc.max_nb_split)();
+    for (unsigned i = 0; i < nb_split; i++)
     {
         parts.push(*(this->create(a.getPosition(), new_size)));
     }

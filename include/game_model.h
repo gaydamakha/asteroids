@@ -21,6 +21,9 @@ class GameModel
     double bullets_ttl;
     double bullets_size;
 
+	//Asteroids configs
+	AsteroidsProps props;
+
 	//env characteristics
 	double env_resistence;
 

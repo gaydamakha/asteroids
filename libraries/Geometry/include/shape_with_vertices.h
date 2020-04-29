@@ -15,9 +15,15 @@ protected:
 	VerticesArray vertices;
 
 public:
-	void addVertice(const Vec2d &v)
+	ShapeWithVertices() {}
+	
+	ShapeWithVertices(std::initializer_list<Vec2d> v): vertices(v) {}
+
+	const ShapeWithVertices addVertice(const Vec2d &v)
 	{
 		vertices.push(Vec2d(v));
+
+		return *this;
 	}
 
 	const VerticesArray getVertices()

@@ -4,19 +4,32 @@
 #include <Utils.h>
 #include "entities/asteroid.h"
 #include "collections/asteroids_collection.h"
+
 //TODO: implement an interface
 // Contains some static properties, common to all asteroids
 // And applies them while creating new asteroids
+//This description could be defined for every asteroid size
+struct AsteroidsFactoryDesc
+{
+    //For now only the random configuration could be defined (can be a union RandomPolygoneDesc or a list of Vec2d)
+    const RandomPolygoneDesc polygone_desc;
+    const double max_vel;
+    const double max_angle_vel;
+    const unsigned min_nb_split;
+    const unsigned max_nb_split;
+    const Color color;
+};
+
+//Ordering map is used on purpose to pass from one config to another while breaking an asteroid
+using AsteroidsProps = std::map<AsteroidSize, AsteroidsFactoryDesc>;
+
 class AsteroidsFactory
 {
-    double max_vel;
-    Color color;
-    std::unique_ptr<RandomGenerator<int>> nb_split_gen;
-    std::unique_ptr<RandomGenerator<double>> angle_vel_gen;
+    const AsteroidsProps props;
 public:
-    AsteroidsFactory(double, double, unsigned, unsigned, const Color&);
-    std::shared_ptr<Asteroid>  create(const Vec2d &, const AsteroidSize &) const;
-    const AsteroidsCollection broke(Asteroid&) const;
+    AsteroidsFactory(const AsteroidsProps &props);
+    std::shared_ptr<Asteroid> create(const Vec2d &, const AsteroidSize &) const;
+    const AsteroidsCollection broke(Asteroid &) const;
 };
 
 #endif
