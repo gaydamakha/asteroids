@@ -3,8 +3,6 @@
 #include "game_model.h"
 #include "entities/bullet.h"
 
-//TODO: define it using config entity?
-
 //TODO: take a config entity in parameters instead
 GameModel::GameModel(unsigned game_width, unsigned game_height)
 {
@@ -13,12 +11,12 @@ GameModel::GameModel(unsigned game_width, unsigned game_height)
     //TODO: fetch numbers from config entity
     this->asteroids_factory = std::make_unique<AsteroidsFactory>(50.0, 50.0, 2, 2, GREEN);
     //TODO: fetch numbers from config entity
-	this->ship_init_angle = 270.0;
+    this->ship_init_angle = 270.0;
     this->ship_acc = 0.3;       // pixels/second per second
     this->ship_angle_acc = 0.2; // Degrees per one rotation
-    this->bullet_cd = 0.5;       // seconds
-    this->bullets_vel = 300.;
-    this->bullets_ttl = 2.;
+    this->bullet_cd = 0.5;      // seconds
+    this->bullets_vel = 350.;
+    this->bullets_ttl = 1.5;
     this->bullets_size = 5.;
     this->env_resistence = 0.0008;
     timer = std::make_unique<SdlTimer>();
@@ -34,12 +32,12 @@ void GameModel::update()
 
     AsteroidsCollection new_asteroids;
 
-    for (auto& bullet: bullets)
+    for (auto &bullet : bullets)
     {
         bullet->step(seconds);
         this->checkBorders(*bullet);
         //Check if bullet is shot into
-        for (auto &asteroid: asteroids)
+        for (auto &asteroid : asteroids)
         {
             if (asteroid->isCollision(*bullet))
             {
@@ -105,6 +103,8 @@ void GameModel::addShipAtCenter()
     Vec2d position(game_width / 2, game_height / 2);
     Vec2d velocity(0., 0.);
     Polygone shape = *PolygoneFactory::create(position, Vec2d(0, -22), Vec2d(16, 22), Vec2d(0, 16), Vec2d(-16, 22));
+    //TODO: fetch it from the global config
+    GunConfig config = { bullets_size, bullets_vel, bullets_ttl, bullet_cd, GREEN};
     ship = std::make_shared<Ship>(
         position,
         GREEN,
@@ -114,11 +114,7 @@ void GameModel::addShipAtCenter()
         22,
         ship_init_angle,
         ship_acc,
-        bullet_cd,
-        bullets_vel,
-        bullets_size,
-        bullets_ttl,
-        GREEN);
+        config);
 }
 
 void GameModel::accelerateShip()

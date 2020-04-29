@@ -1,10 +1,11 @@
 #ifndef POLYGONE_FACTORY_H
 #define POLYGONE_FACTORY_H
 
-#include <math.h>
+#include <cmath>
 #include <Utils.h>
 #include "vec2.h"
 
+//TODO: replace pointer by smart pointers
 namespace PolygoneFactory
 {
 template <typename... T>

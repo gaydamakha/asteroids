@@ -1,7 +1,7 @@
 #ifndef ASTEROID_H
 #define ASTEROID_H
 
-#include <bits/stdc++.h>
+#include <map>
 #include <Geometry.h>
 #include "moving_polygone_particle.h"
 #include "shape_view_game_entity.h"
@@ -13,14 +13,13 @@ enum class AsteroidSize
 	SMALL
 };
 
-
 struct AsteroidDesc
 {
-	double min_radius;
-	double max_radius;
-	double granularity;
-	double min_angle_vary;
-	double max_angle_vary;
+	const double min_radius;
+	const double max_radius;
+	const double granularity;
+	const double min_angle_vary;
+	const double max_angle_vary;
 };
 
 class Asteroid : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity

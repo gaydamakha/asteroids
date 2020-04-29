@@ -35,7 +35,7 @@ const AsteroidsCollection AsteroidsFactory::broke(Asteroid &a) const
     }
     AsteroidSize new_size = new_props->first;
     AsteroidDesc new_desc = new_props->second;
-    for (unsigned i = 0; i < (*nb_split_gen)(); i++)
+    for (unsigned i = 0; i < (unsigned)(*nb_split_gen)(); i++)
     {
         parts.push(*(this->create(a.getPosition(), new_size)));
     }

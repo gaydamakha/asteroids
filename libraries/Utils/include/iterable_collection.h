@@ -75,9 +75,14 @@ public:
 		return collection.end();
 	}
 
-	const T &operator[](int index) const
+	T& operator[](int index)
 	{
-		return collection[index];
+		return *collection[index];
+	}
+
+	const T& operator[](int index) const
+	{
+		return *collection[index];
 	}
 
 	const std::size_t getSize() const

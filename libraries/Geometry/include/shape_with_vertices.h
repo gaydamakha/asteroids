@@ -9,14 +9,20 @@
 using Vertice = Vec2d;
 using VerticesArray = IterableCollection<Vertice>;
 
-class ShapeWithVertices: public IterableShape<Vertice>
+class ShapeWithVertices : public IterableShape<Vertice>
 {
 protected:
 	VerticesArray vertices;
+
 public:
-	void addVertice(const Vec2d& v)
+	void addVertice(const Vec2d &v)
 	{
 		vertices.push(Vec2d(v));
+	}
+
+	const VerticesArray getVertices()
+	{
+		return vertices;
 	}
 
 	const VerticesArray getVertices() const
@@ -24,13 +30,18 @@ public:
 		return vertices;
 	}
 
+	const VerticesArray getData()
+	{
+		return getVertices();
+	}
+
 	const VerticesArray getData() const
 	{
 		return getVertices();
 	}
 
-	const void rotate(const Vec2d&, double);
+	const void rotate(const Vec2d &, double);
 
-	const void translate(const Vec2d&);
+	const void translate(const Vec2d &);
 };
 #endif // !SHAPE_H

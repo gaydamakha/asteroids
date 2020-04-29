@@ -5,7 +5,7 @@
 void Drawer::drawPolygone(const Polygone& polygone, const Color& color) const
 {
 	setDrawColor(color);
-	auto vertices = polygone.getData();
+	auto vertices = polygone.getVertices();
 
 	for (auto i = vertices.begin(); i < --vertices.end(); ++i)
 	{

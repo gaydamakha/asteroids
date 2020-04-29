@@ -1,7 +1,7 @@
 #ifndef VEC2_IMPL_H
 #define VEC2_IMP_H
 
-#include <math.h>
+#include <cmath>
 #include "vec2.h"
 #include "trigonometry.h"
 
