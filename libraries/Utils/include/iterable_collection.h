@@ -1,5 +1,6 @@
 #ifndef ITERABLE_COLLECTION_H
 #define ITERABLE_COLLECTION_H
+
 #include <vector>
 #include <functional>
 #include <memory>
@@ -7,6 +8,7 @@
 template <typename T>
 class IterableCollection
 {
+public:
 	using Element = typename std::shared_ptr<T>;
 	using Iterator = typename std::vector<Element>::iterator;
 
@@ -19,7 +21,7 @@ public:
 	//The use of delegating constructor
 	IterableCollection<T>(std::initializer_list<T> il) : IterableCollection<T>()
 	{
-		for (auto &el:il)
+		for (auto &el : il)
 		{
 			this->push(el);
 		}
@@ -84,12 +86,12 @@ public:
 		return collection.end();
 	}
 
-	T& operator[](int index)
+	T &operator[](int index)
 	{
 		return *collection[index];
 	}
 
-	const T& operator[](int index) const
+	const T &operator[](int index) const
 	{
 		return *collection[index];
 	}

@@ -1,6 +1,6 @@
 #include <string>
-#include "sdl_game_view.h"
-#include "sdl_drawer.h"
+#include "interface/sdl_game_view.h"
+#include "interface/sdl_drawer.h"
 #include "entities/asteroid.h"
 
 SdlGameView::SdlGameView(const std::string &game_name, int game_width, int game_height, const Color &background)

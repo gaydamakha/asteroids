@@ -1,6 +1,6 @@
 #include <string>
-#include "game_view.h"
-#include "drawer.h"
+#include "interface/game_view.h"
+#include "interface/drawer.h"
 #include "entities/asteroid.h"
 
 void GameView::clear() const

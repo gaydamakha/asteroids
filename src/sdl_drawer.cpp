@@ -1,4 +1,4 @@
-#include "sdl_drawer.h"
+#include "interface/sdl_drawer.h"
 
 SdlDrawer::SdlDrawer(SDL_Renderer* renderer)
 {

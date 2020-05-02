@@ -2,6 +2,13 @@
 
 AsteroidsFactory::AsteroidsFactory(const AsteroidsProps& props) : props(props) {}
 
+const AsteroidsFactory &AsteroidsFactory::setProps(const AsteroidsProps &props)
+{
+    this->props = props;
+
+    return *this;
+}
+
 std::shared_ptr<Asteroid> AsteroidsFactory::create(const Vec2d &position, const AsteroidSize &size) const
 {
     AsteroidsFactoryDesc desc = props.at(size);

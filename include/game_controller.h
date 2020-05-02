@@ -2,7 +2,7 @@
 #define GAME_CONTROLLER_H
 
 #include "game_model.h"
-#include "game_view.h"
+#include "interface/game_view.h"
 
 class GameController
 {

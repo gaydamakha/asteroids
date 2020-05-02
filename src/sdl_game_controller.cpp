@@ -9,11 +9,8 @@ void SdlGameController::run()
 	SDL_Event event;
 	const Uint8 *keyboardState;
 
-	//TODO: remove it and pass a config instead (in the main method)
-	game_model->addShipAtCenter();
-	game_model->addAsteroid(AsteroidSize::BIG);
-	game_model->addAsteroid(AsteroidSize::MEDIUM);
-	game_model->addAsteroid(AsteroidSize::SMALL);
+	//TODO: begin on the user's confirmation
+	game_model->begin();
 
 	while (!quit)
 	{
@@ -46,6 +43,21 @@ void SdlGameController::run()
 		game_view->clear();
 		//Update internal state of the model
 		game_model->update();
+
+		if (game_model->isOver())
+		{
+			//TODO: show menu instead of closing
+			std::cout << "Game over!" << std::endl;
+			quit = true;
+		}
+
+		if (!game_model->isBegan())
+		{
+			//Game is successfully finished!
+			//TODO: show menu instead of closing
+			std::cout << "Game is finished!" << std::endl;
+			quit = true;
+		}
 
 		game_view->update(*game_model);
 	}

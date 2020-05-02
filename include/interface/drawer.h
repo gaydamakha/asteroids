@@ -7,7 +7,7 @@
 class Drawer
 {
 private:
-	virtual void setDrawColor(const Color &color) const {};
+	virtual void setDrawColor(const Color &color) const = 0;
 
 public:
 	virtual void fillScreen(const Color &background) const = 0;
