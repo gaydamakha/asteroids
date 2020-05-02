@@ -5,7 +5,7 @@ Ship::Ship(const ShipConfig &c) : MovingPolygoneParticle(c.init_position,
 														 c.init_velocity,
 														 c.vertices,
 														 c.angle_acc),
-								  CircleCollider(c.init_position, c.radius), nose(polygone.getVertices()[0])
+								  CircleCollider(this->coords, c.radius), nose(polygone.getVertices()[0])
 {
 	this->acc = c.acc;
 	this->angle = c.init_angle;
@@ -13,25 +13,17 @@ Ship::Ship(const ShipConfig &c) : MovingPolygoneParticle(c.init_position,
 	this->gun = std::make_unique<Gun>(nose, angle, c.gun_config);
 }
 
-void Ship::step(double s)
+const Ship &Ship::step(double s)
 {
 	MovingPolygoneParticle::step(s);
-	// Update collider's position
-	this->setPosition(coords);
-}
-
-void Ship::accelerate()
-{
-	MovingParticle::accelerate(angle, acc);
-}
-
-void Ship::slow(double k)
-{
-	velocity -= velocity * k;
+	//Update collider's position
+	position = coords;
+	
+	return *this;
 }
 
 //TODO: add angle velocity
-void Ship::rotateLeft()
+const Ship & Ship::rotateLeft()
 {
 	polygone.rotate(coords, -angle_acc);
 	angle -= angle_acc;
@@ -39,19 +31,32 @@ void Ship::rotateLeft()
 	{
 		angle += 360;
 	}
+
+	return *this;
 }
 
-void Ship::rotateRight()
+const Ship &Ship::rotateRight()
 {
 	polygone.rotate(coords, angle_acc);
 	angle = std::fmod(angle + angle_acc, 360);
+
+	return *this;
 }
 
-void Ship::setAngle(double a)
+const Ship &Ship::accelerate()
+{
+	MovingParticle::accelerate(angle, acc);
+
+	return *this;
+}
+
+const Ship & Ship::setAngle(double a)
 {
 	double delta = a - angle;
 	polygone.rotate(coords, delta);
 	angle = a;
+
+	return *this;
 }
 
 BulletsCollection Ship::shoot(double timestamp)

@@ -17,7 +17,7 @@ class Gun : public BulletsFactory
 protected:
     //These properties will update with the ship's values
     //Position where the gun is "installed"
-    const Vec2d &position;
+    const Vec2d &coords;
     const double &angle;
     const double cooldown;
     double last_bullet_time;

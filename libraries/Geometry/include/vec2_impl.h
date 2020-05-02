@@ -72,6 +72,14 @@ T Vec2<T>::getDistance(const Vec2<T> &v)
 }
 
 template <typename T>
+T Vec2<T>::getDistance(const Vec2<T> &v) const
+{
+    T xdif = v.getX() - x;
+    T ydif = v.getY() - y;
+    return sqrt(xdif * xdif + ydif * ydif);
+}
+
+template <typename T>
 T getDistance(const Vec2<T> &v1, const Vec2<T> &v2)
 {
     T xdif = v1.getX() - v2.getX();

@@ -22,25 +22,33 @@ public:
 		return velocity;
 	}
 
-	virtual void setVelocity(Vec2d v)
+	virtual MovingParticle &setVelocity(Vec2d v)
 	{
 		velocity = v;
+
+		return *this;
 	}
 
-	void step(double s)
+	const MovingParticle &step(double s) override
 	{
 		// Velocity is px per second, so we multiply it by seconds
 		coords += velocity * s;
+
+		return *this;
 	}
 
-	virtual void accelerate(double angle, double acc)
+	virtual const MovingParticle &accelerate(double angle, double acc)
 	{
 		velocity += Vec2d(cosd(angle) * acc, sind(angle) * acc);
+
+		return *this;
 	}
 
-	virtual void slow(double k)
+	virtual const MovingParticle &slow(double k)
 	{
 		velocity -= velocity * k;
+
+		return *this;
 	}
 };
 

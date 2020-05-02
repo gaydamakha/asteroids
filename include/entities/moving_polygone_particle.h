@@ -13,17 +13,16 @@ protected:
 public:
 	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &, const std::initializer_list<Vec2d> &, double);
 
-	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &v, const RandomPolygoneDesc&, double);
-
-	~MovingPolygoneParticle();
+	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &v, const RandomPolygoneDesc &, double);
 
 	inline const Polygone getPolygone() const { return polygone; }
 
-	void setCoords(Vec2d);
+	const MovingPolygoneParticle &setCoords(Vec2d) override;
 
-	virtual void rotateShape(double);
+	const MovingPolygoneParticle &step(double) override;
 
-	void step(double);
+protected:
+	virtual const MovingPolygoneParticle &rotateShape(double);
 };
 
 #endif

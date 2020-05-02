@@ -179,6 +179,11 @@ public:
 		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
 	}
 
+	inline double getLength() const
+	{
+		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
+	}
+
 	Vec2<T> rotate(double rotangle);
 
 	Vec2<T> rotate(const Vec2<T>& center, double rotangle);
@@ -187,6 +192,8 @@ public:
 	Vec2<T> normalize();
 
 	T getDistance(const Vec2<T>&);
+
+	T getDistance(const Vec2<T> &v) const;
 };
 
 // Vec2<T> vec2;

@@ -4,7 +4,6 @@
 #include <map>
 #include <Geometry.h>
 #include "moving_polygone_particle.h"
-#include "shape_view_game_entity.h"
 
 enum class AsteroidSize
 {
@@ -13,7 +12,7 @@ enum class AsteroidSize
 	SMALL
 };
 
-class Asteroid : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity
+class Asteroid : public MovingPolygoneParticle, public CircleCollider
 {
 	const AsteroidSize size;
 	bool broken;
@@ -26,18 +25,16 @@ public:
 			 double,
 			 AsteroidSize);
 
-	void step(double);
+	const Asteroid& step(double) override;
 
 	inline const AsteroidSize getSize() const { return size; }
 
+	//Once asteroid is broken, it can not be restored
+	inline const Asteroid& broke() { broken = true; return *this;}
+
 	inline bool isBroken() const { return broken; }
 
-	inline const Shape getShape() const { return polygone; }
-
-	//Once asteroid is broken, it can not be restored
-	inline const void broke() { broken = true; }
-
-	inline bool toRemove(double timestamp) { return this->isBroken(); }
+	inline bool toRemove(double timestamp) const override { return this->isBroken(); }
 };
 
 #endif

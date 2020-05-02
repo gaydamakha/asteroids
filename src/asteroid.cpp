@@ -8,15 +8,17 @@ Asteroid::Asteroid(
 	const RandomPolygoneDesc& desc,
 	double angle_acc,
 	double rad,
-	AsteroidSize size) : MovingPolygoneParticle(position, color, velocity, desc, angle_acc), CircleCollider(position, rad), size(size)
+	AsteroidSize size) : MovingPolygoneParticle(position, color, velocity, desc, angle_acc), CircleCollider(this->coords, rad), size(size)
 {
 	broken = false;
 }
 
-void Asteroid::step(double s)
+const Asteroid& Asteroid::step(double s)
 {
 	MovingPolygoneParticle::step(s);
 	this->rotateShape(s);
-	// Update collider's position
-	this->setPosition(coords);
+	//Update collider's position
+	position = coords;
+
+	return *this;
 }

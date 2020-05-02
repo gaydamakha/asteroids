@@ -9,7 +9,7 @@ class CircleCollider : public Collider
 public:
     CircleCollider(const Vec2d &position, double rad) : Collider(position, std::make_shared<Circle>(rad)) {}
 
-    const bool isCollision(const Collider &c)
+    bool isCollision(const Collider &c)
     {
         const std::shared_ptr<Circle> col1 = std::static_pointer_cast<Circle>(this->shape);
         const std::shared_ptr<Shape> shape2 = c.getShape();

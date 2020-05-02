@@ -11,7 +11,7 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 						polygone(vertices)
 {
 	this->angle_acc = angle_acc;
-	polygone.translate(position);
+	polygone.translate(coords);
 }
 
 MovingPolygoneParticle::MovingPolygoneParticle(
@@ -25,27 +25,29 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 						polygone(desc)
 {
 	this->angle_acc = angle_acc;
-	polygone.translate(position);
+	polygone.translate(coords);
 }
 
-MovingPolygoneParticle::~MovingPolygoneParticle()
-{
-}
-
-void MovingPolygoneParticle::step(double s)
+const MovingPolygoneParticle &MovingPolygoneParticle::step(double s)
 {
 	MovingParticle::step(s);
 	polygone.translate(velocity * s);
+
+	return *this;
 }
 
-void MovingPolygoneParticle::rotateShape(double s)
+const MovingPolygoneParticle &MovingPolygoneParticle::rotateShape(double s)
 {
 	polygone.rotate(coords, angle_acc * s);
+
+	return *this;
 }
 
-void MovingPolygoneParticle::setCoords(Vec2d p)
+const MovingPolygoneParticle &MovingPolygoneParticle::setCoords(Vec2d p)
 {
 	Vec2d delta = p - coords;
 	coords = p;
 	polygone.translate(delta);
+
+	return *this;
 }

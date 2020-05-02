@@ -7,13 +7,13 @@
 class GameController
 {
 protected:
-	GameModel* model;
-	GameView* view;
+	std::unique_ptr<GameModel> game_model;
+	std::unique_ptr<GameView> game_view;
 public:
-	GameController(GameModel* model, GameView* view)
+	GameController(GameModel* game_model, GameView* game_view)
 	{
-		this->view = view;
-		this->model = model;
+		this->game_model = std::unique_ptr<GameModel>(game_model);
+		this->game_view = std::unique_ptr<GameView>(game_view);
 	}
 
 	virtual void run() = 0;

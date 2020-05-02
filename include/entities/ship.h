@@ -3,7 +3,6 @@
 
 #include <Geometry.h>
 #include "collections/bullets_collection.h"
-#include "shape_view_game_entity.h"
 #include "moving_polygone_particle.h"
 #include "gun.h"
 
@@ -20,7 +19,7 @@ struct ShipConfig
 	const GunConfig gun_config;
 };
 
-class Ship : public MovingPolygoneParticle, public CircleCollider, public ShapeViewGameEntity
+class Ship : public MovingPolygoneParticle, public CircleCollider
 {
 protected:
 	double angle;
@@ -31,25 +30,21 @@ protected:
 public:
 	Ship(const ShipConfig &);
 
-	void step(double);
-
-	void slow(double);
-
-	void accelerate();
-
-	void rotateLeft();
-
-	void rotateRight();
-
-	BulletsCollection shoot(double);
-
 	inline double getAngle() { return angle; }
 
-	void setAngle(double);
-
-	inline const Shape getShape() const { return polygone; }
+	const Ship &setAngle(double);
 
 	inline bool toRemove(double timestamp) { return false; }
+
+	const Ship &rotateLeft();
+
+	const Ship &rotateRight();
+
+	const Ship &accelerate();
+
+	const Ship &step(double) override;
+
+	BulletsCollection shoot(double);
 };
 
 #endif

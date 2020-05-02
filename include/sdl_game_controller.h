@@ -3,7 +3,7 @@
 
 #include "game_controller.h"
 
-class SdlController : public GameController
+class SdlGameController : public GameController
 {
 public:
 	using GameController::GameController;
