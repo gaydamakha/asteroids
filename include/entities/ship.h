@@ -8,15 +8,15 @@
 
 struct ShipConfig
 {
-	const Vec2d init_position;
-	const Color color;
-	const Vec2d init_velocity;
-	const std::initializer_list<Vec2d> vertices;
-	const double angle_acc;
-	const double radius;
-	const double init_angle;
-	const double acc;
-	const GunConfig gun_config;
+	Vec2d init_position;
+	Color color;
+	Vec2d init_velocity;
+	VerticesArray vertices;
+	double angle_acc;
+	double radius;
+	double init_angle;
+	double acc;
+	GunConfig gun_config;
 };
 
 class Ship : public MovingPolygoneParticle, public CircleCollider

@@ -5,10 +5,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# begin with compilation of SDL2 copy 
-add_subdirectory(libraries/SDL2)
-add_subdirectory(libraries/Utils)
-add_subdirectory(libraries/Geometry)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+
+add_subdirectory(lib/SDL2)
+add_subdirectory(lib/nlohmann_json)
+add_subdirectory(lib/nlohmann_json_schema_validator)
+add_subdirectory(lib/Utils)
+add_subdirectory(lib/Geometry)
+
+# find_package(nlohmann_json REQUIRED)
+# find_package(nlohmann_json_schema_validator REQUIRED)
 
 # convenient function for easy compilation of Asteroids project
 # usage: compilation(EXEC nom_executable SRC fichiers sources .cpp et .h USE_SDL)
@@ -26,7 +32,7 @@ function(COMPILATION)
     )
     target_sources(${COMPILATION_PREFIX_EXEC} PUBLIC ${SOURCES})
     set_target_properties(${COMPILATION_PREFIX_EXEC} PROPERTIES CXX_STANDARD 17)
-    target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC Utils Geometry)
+    target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC Utils Geometry nlohmann_json::nlohmann_json nlohmann_json_schema_validator) 
     if (${COMPILATION_PREFIX_USE_SDL})
         target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC SDL2main SDL2-static)
     endif()

@@ -24,6 +24,8 @@ void GameView::update(const GameModel &game_model)
 	{
 		this->showBullet(*bullet);
 	}
+
+	//TODO: show game stats view
 }
 
 void GameView::showAsteroid(const Asteroid &a) const

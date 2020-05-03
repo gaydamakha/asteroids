@@ -11,7 +11,7 @@ protected:
 	double angle_acc;
 
 public:
-	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &, const std::initializer_list<Vec2d> &, double);
+	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &, const VerticesArray&, double);
 
 	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &v, const RandomPolygoneDesc &, double);
 

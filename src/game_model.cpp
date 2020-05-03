@@ -1,15 +1,15 @@
 #include <Geometry.h>
 #include "sdl_timer.h"
 #include "game_model.h"
-#include "entities/bullet.h"
 
-GameModel::GameModel(unsigned game_width, unsigned game_height, const GameLevelsCollection &levels)
+GameModel::GameModel(unsigned game_width, unsigned game_height, GameLevelsCollection &levels)
 {
     this->game_over = false;
     this->game_began = false;
     this->game_width = game_width;
     this->game_height = game_height;
-    this->levels = levels;
+    this->levels.moveFrom(levels);
+    this->levels.sort();
     player = std::make_unique<Player>();
     asteroids_factory = std::make_unique<AsteroidsFactory>();
 }
@@ -38,6 +38,11 @@ const GameModel &GameModel::setLevel(const GameLevelsCollection::Iterator &level
 
 void GameModel::begin()
 {
+    if (levels.getSize() == 0)
+    {
+        std::cerr << "No level is loaded!" << std::endl;
+        return;
+    }
     this->setLevel(levels.begin());
     //At last, rebuild a timer
     timer.reset();
@@ -55,7 +60,7 @@ void GameModel::update()
     //Get number of seconds passed in the previous loop (0 if it's the first iteration)
     double seconds = timer->getDelta();
     ship->step(seconds);
-    ship->slow((*current_level)->env_resistence);
+    ship->slow((*current_level)->env_resistance);
     this->checkBorders(*ship);
 
     AsteroidsCollection new_asteroids;

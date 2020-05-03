@@ -1,0 +1,107 @@
+{
+    "level_name": "Level 1",
+    "level_order": 1,
+    "init_lifepoints": 3,
+    "asteroids_props": {
+        "BIG": {
+            "amount": 1,
+            "min_radius": 30,
+            "max_radius": 50,
+            "granularity": 20,
+            "min_angle_vary": 25,
+            "max_angle_vary": 7,
+            "max_velocity": 50,
+            "max_angle_velocity": 50,
+            "min_nb_split": 2,
+            "max_nb_split": 2,
+            "color": [
+                0,
+                255,
+                0
+            ]
+        },
+        "MEDIUM": {
+            "amount": 1,
+            "min_radius": 20,
+            "max_radius": 32,
+            "granularity": 20,
+            "min_angle_vary": 25,
+            "max_angle_vary": 7,
+            "max_velocity": 50,
+            "max_angle_velocity": 50,
+            "min_nb_split": 2,
+            "max_nb_split": 2,
+            "color": [
+                0,
+                255,
+                0
+            ]
+        },
+        "SMALL": {
+            "amount": 1,
+            "min_radius": 10,
+            "max_radius": 20,
+            "granularity": 15,
+            "min_angle_vary": 25,
+            "max_angle_vary": 7,
+            "max_velocity": 50,
+            "max_angle_velocity": 50,
+            "min_nb_split": 0,
+            "max_nb_split": 0,
+            "color": [
+                0,
+                255,
+                0
+            ]
+        }
+    },
+    "ship_config": {
+        "init_position": {
+            "x": 500,
+            "y": 300
+        },
+        "color": [
+            0,
+            255,
+            0
+        ],
+        "init_velocity": {
+            "x": 0,
+            "y": 0
+        },
+        "vertices": [
+            {
+                "x": 0,
+                "y": -22
+            },
+            {
+                "x": 16,
+                "y": 22
+            },
+            {
+                "x": 0,
+                "y": 16
+            },
+            {
+                "x": -16,
+                "y": 22
+            }
+        ],
+        "angle_acc": 0.2,
+        "collider_radius": 22,
+        "init_angle": 270,
+        "acc": 0.3,
+        "gun_config": {
+            "bullets_radius": 5,
+            "bullets_vel": 350,
+            "bullets_ttl": 1.5,
+            "cooldown": 0.5,
+            "bullets_color": [
+                0,
+                255,
+                0
+            ]
+        }
+    },
+    "env_resistance": 0.0008
+}

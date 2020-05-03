@@ -4,7 +4,7 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 	const Vec2d &position,
 	const Color &color,
 	const Vec2d &velocity,
-	const std::initializer_list<Vec2d> &vertices,
+	const VerticesArray &vertices,
 	double angle_acc) : MovingParticle(position,
 									   color,
 									   velocity),

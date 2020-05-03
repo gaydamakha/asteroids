@@ -49,6 +49,7 @@ void SdlGameController::run()
 			//TODO: show menu instead of closing
 			std::cout << "Game over!" << std::endl;
 			quit = true;
+			break;
 		}
 
 		if (!game_model->isBegan())
@@ -57,6 +58,7 @@ void SdlGameController::run()
 			//TODO: show menu instead of closing
 			std::cout << "Game is finished!" << std::endl;
 			quit = true;
+			break;
 		}
 
 		game_view->update(*game_model);

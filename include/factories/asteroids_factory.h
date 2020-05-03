@@ -12,12 +12,12 @@
 struct AsteroidsFactoryDesc
 {
     //For now only the random configuration could be defined (can be a union RandomPolygoneDesc or a list of Vec2d)
-    const RandomPolygoneDesc polygone_desc;
-    const double max_vel;
-    const double max_angle_vel;
-    const unsigned min_nb_split;
-    const unsigned max_nb_split;
-    const Color color;
+    RandomPolygoneDesc polygone_desc;
+    double max_vel;
+    double max_angle_vel;
+    unsigned min_nb_split;
+    unsigned max_nb_split;
+    Color color;
 };
 
 //Ordering map is used on purpose to pass from one config to another while breaking an asteroid

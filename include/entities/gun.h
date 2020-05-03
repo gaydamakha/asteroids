@@ -5,11 +5,11 @@
 
 struct GunConfig
 {
-    const double bullets_radius;
-    const double bullets_vel;
-    const double bullets_ttl;
-    const double cooldown;
-    const Color bullets_color;
+    double bullets_radius;
+    double bullets_vel;
+    double bullets_ttl;
+    double cooldown;
+    Color bullets_color;
 };
 
 class Gun : public BulletsFactory

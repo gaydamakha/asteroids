@@ -33,7 +33,7 @@ class GameModel
 	GameLevelsCollection levels;
 
 public:
-	GameModel(unsigned game_width, unsigned game_height, const GameLevelsCollection& levels);
+	GameModel(unsigned game_width, unsigned game_height, GameLevelsCollection& levels);
 
 	//Begins the game from the first level
 	void begin();
