@@ -8,7 +8,6 @@ void SdlGameController::run()
 	bool quit = false;
 	SDL_Event event;
 	const Uint8 *keyboardState;
-	int mouse_x, mouse_y;
 
 	while (!quit)
 	{
@@ -23,7 +22,6 @@ void SdlGameController::run()
 				game_view->showText(launch_menu.at(Event::START_GAME).getPosition() + Vec2d(0., -60),"Game over!", GREEN);
 			}
 			//If game was finished after this update
-			//TODO: show another banner
 			for (auto m : launch_menu)
 			{
 				game_view->showButton(m.second);
@@ -41,7 +39,7 @@ void SdlGameController::run()
 				}
 			}
 		}
-		//TODO: write and call this->handleKeyboardState();
+
 		keyboardState = SDL_GetKeyboardState(NULL);
 
 		if (keyboardState[SDL_SCANCODE_RETURN])

@@ -8,7 +8,7 @@ SdlGameView::SdlGameView(const std::string &game_name, int game_width, int game_
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) == 0);
 	window = SDL_CreateWindow(game_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game_width, game_height,
-							  SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_INPUT_GRABBED);
+							  SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL)
 	{
@@ -17,7 +17,6 @@ SdlGameView::SdlGameView(const std::string &game_name, int game_width, int game_
 	}
 	// SDL_GetRendererOutputSize(renderer, &this->game_width, &this->game_height);
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
-	SDL_RenderSetLogicalSize(renderer, game_width, game_height);
 	drawer = std::make_unique<SdlDrawer>(renderer);
 	//Inverse letters by Y axis
 	for (auto &letter : font.getFont())

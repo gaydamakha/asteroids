@@ -11,6 +11,7 @@ class IterableCollection
 public:
 	using Element = typename std::shared_ptr<T>;
 	using Iterator = typename std::vector<Element>::iterator;
+	using ConstIterator = typename std::vector<Element>::const_iterator;
 
 protected:
 	std::vector<Element> collection;
@@ -27,6 +28,17 @@ public:
 		{
 			this->push(el);
 		}
+	}
+
+	const IterableCollection<T> copyFrom(const IterableCollection<T>& ic)
+	{
+		//A deep copy of the given collection
+		for (auto &el: ic)
+		{
+			this->push(*el);
+		}
+
+		return *this;
 	}
 
 	~IterableCollection()
@@ -81,6 +93,11 @@ public:
 		return collection.begin();
 	}
 
+	ConstIterator begin() const
+	{
+		return collection.begin();
+	}
+
 	const Iterator prev(const Iterator &current) const
 	{
 		return std::prev(current);
@@ -92,6 +109,11 @@ public:
 	}
 
 	Iterator end()
+	{
+		return collection.end();
+	}
+
+	ConstIterator end() const
 	{
 		return collection.end();
 	}

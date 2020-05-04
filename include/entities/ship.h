@@ -28,7 +28,7 @@ protected:
 	std::unique_ptr<Gun> gun;
 
 public:
-	Ship(const ShipConfig &);
+	Ship(const ShipConfig);
 
 	inline double getAngle() { return angle; }
 

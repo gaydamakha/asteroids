@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-#include <SDL.h>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json-schema.hpp>
 #include "schemas/config_schema.h"
@@ -15,9 +14,7 @@
 
 using namespace nlohmann;
 
-//TODO: search how to include it into CMake build
-static const std::string CONFIG_DIR = "./configs/";
-static const std::string LEVELS_DIR = "./configs/levels/";
+static const std::string LEVELS_PATH = CONFIGS_PATH + "levels/";
 
 int get_config(std::string filename, json &config)
 {
@@ -57,13 +54,13 @@ int main(int argc, char **argv)
 {
 	json config;
 	int status;
-	if ((status = get_config(CONFIG_DIR + "asteroids.json", config)) != 0) 
+	if ((status = get_config(CONFIGS_PATH + "asteroids.json", config)) != 0) 
 	{
 		return status;
 	}
 
 	GameLevelsCollection levels;
-	if ((status = load_levels(LEVELS_DIR, levels)) != 0) 
+	if ((status = load_levels(LEVELS_PATH, levels)) != 0) 
 	{
 		return status;
 	}

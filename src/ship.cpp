@@ -1,11 +1,11 @@
 #include "entities/ship.h"
 
-Ship::Ship(const ShipConfig &c) : MovingPolygoneParticle(c.init_position,
-														 c.color,
-														 c.init_velocity,
-														 c.vertices,
-														 c.angle_acc),
-								  CircleCollider(this->coords, c.radius), nose(polygone->getVertices()[0])
+Ship::Ship(const ShipConfig c) : MovingPolygoneParticle(c.init_position,
+														c.color,
+														c.init_velocity,
+														c.vertices,
+														c.angle_acc),
+								 CircleCollider(this->coords, c.radius), nose(polygone->getVertices()[0])
 {
 	this->acc = c.acc;
 	this->angle = c.init_angle;
@@ -18,12 +18,12 @@ const Ship &Ship::step(double s)
 	MovingPolygoneParticle::step(s);
 	//Update collider's position
 	position = coords;
-	
+
 	return *this;
 }
 
 //TODO: add angle velocity
-const Ship & Ship::rotateLeft()
+const Ship &Ship::rotateLeft()
 {
 	polygone->rotate(coords, -angle_acc);
 	angle -= angle_acc;
@@ -50,7 +50,7 @@ const Ship &Ship::accelerate()
 	return *this;
 }
 
-const Ship & Ship::setAngle(double a)
+const Ship &Ship::setAngle(double a)
 {
 	double delta = a - angle;
 	polygone->rotate(coords, delta);

@@ -18,7 +18,10 @@ public:
 
 	ShapeWithVertices(unsigned size) : vertices(size) {}
 	
-	ShapeWithVertices(const VerticesArray& v): vertices(v) {}
+	ShapeWithVertices(const VerticesArray& v)
+	{
+		vertices.copyFrom(v);
+	}
 
 	ShapeWithVertices& addVertice(const Vec2d &v)
 	{

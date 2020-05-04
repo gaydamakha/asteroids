@@ -36,6 +36,7 @@ function(COMPILATION)
     if (${COMPILATION_PREFIX_USE_SDL})
         target_link_libraries(${COMPILATION_PREFIX_EXEC} PUBLIC SDL2main SDL2-static)
     endif()
+    target_compile_definitions(${COMPILATION_PREFIX_EXEC} PUBLIC "CONFIGS_PATH=std::string\(\"${CMAKE_CURRENT_SOURCE_DIR}/configs/\"\)")
 endfunction()
 
 #TODO: use aux_source_directory
