@@ -76,3 +76,9 @@ double cosd(double x)
 
     return res;
 }
+
+
+bool isPointOnLeft(const Vec2d &p, const Vec2d &v1, const Vec2d &v2)
+{
+    return ((v2.getX() - v1.getX()) * (p.getY() - v1.getY()) - (p.getX() - v1.getX()) * (v2.getY() - v1.getY())) >= 0;
+}

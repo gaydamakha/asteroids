@@ -38,6 +38,10 @@ const GameModel &GameModel::setLevel(const GameLevelsCollection::Iterator &level
 
 void GameModel::begin()
 {
+    if (game_began)
+    {
+        return;
+    }
     if (levels.getSize() == 0)
     {
         std::cerr << "No level is loaded!" << std::endl;
@@ -48,6 +52,7 @@ void GameModel::begin()
     timer.reset();
     timer = std::make_unique<SdlTimer>();
     game_began = true;
+    game_over = false;
 }
 
 void GameModel::update()
@@ -149,16 +154,28 @@ void GameModel::addAsteroid(AsteroidSize size)
 
 void GameModel::accelerateShip()
 {
+    if (!game_began || game_over)
+    {
+        return;
+    }
     ship->accelerate();
 }
 
 void GameModel::rotateShipLeft()
 {
+    if (!game_began || game_over)
+    {
+        return;
+    }
     ship->rotateLeft();
 }
 
 void GameModel::rotateShipRight()
 {
+    if (!game_began || game_over)
+    {
+        return;
+    }
     ship->rotateRight();
 }
 
@@ -168,12 +185,17 @@ void GameModel::resetPlayer()
     player->reset(sc.init_position, sc.init_angle);
     if (player->getLifepoints() == 0)
     {
+        game_began = false;
         game_over = true;
     }
 }
 
 void GameModel::shoot()
 {
+    if (!game_began || game_over)
+    {
+        return;
+    }
     BulletsCollection new_bullets = ship->shoot(timer->getTimestamp());
     bullets.moveFrom(new_bullets);
 }

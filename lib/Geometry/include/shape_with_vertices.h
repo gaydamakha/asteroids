@@ -20,19 +20,19 @@ public:
 	
 	ShapeWithVertices(const VerticesArray& v): vertices(v) {}
 
-	const ShapeWithVertices addVertice(const Vec2d &v)
+	ShapeWithVertices& addVertice(const Vec2d &v)
 	{
 		vertices.push(Vec2d(v));
 
 		return *this;
 	}
 
-	VerticesArray getVertices()
+	VerticesArray& getVertices()
 	{
 		return vertices;
 	}
 
-	const VerticesArray getVertices() const
+	const VerticesArray& getVertices() const
 	{
 		return vertices;
 	}

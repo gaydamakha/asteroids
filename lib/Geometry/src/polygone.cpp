@@ -18,8 +18,3 @@ Polygone::Polygone(double min_radius, double max_radius, unsigned granularity, d
 
 //The use of delegating constructor
 Polygone::Polygone(const RandomPolygoneDesc &d) : Polygone(d.min_radius, d.max_radius, d.granularity, d.min_angle_vary, d.max_angle_vary) {}
-
-const bool Polygone::isCircular() const
-{
-	return true;
-}

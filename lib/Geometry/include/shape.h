@@ -6,7 +6,7 @@
 class Shape
 {
 public:
-	virtual const bool isCircular() const { return false; }
+	virtual const bool isClosed() const { return false; }
 	//Moves shape to the needed direction
 	virtual const Shape& translate(const Vec2d &) { return *this; }
 	//Rotates the shape

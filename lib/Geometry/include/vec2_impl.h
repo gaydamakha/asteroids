@@ -2,8 +2,12 @@
 #define VEC2_IMP_H
 
 #include <cmath>
-#include "vec2.h"
 #include "trigonometry.h"
+#include "vec2.h"
+
+double sind(double x);
+
+double cosd(double x);
 
 template <typename T>
 Vec2<T> Vec2<T>::rotate(double rotangle)

@@ -16,9 +16,9 @@ public:
 
 	virtual void drawSquare(double, const Vec2d &, const Color &) const = 0;
 
-	void drawPolygone(const Polygone &, const Color &) const;
-
-	void drawShapeWithVertices(const Vec2d&, const ShapeWithVertices&, const Color &) const;
+	// void drawPolygone(const Polygone &, const Color &) const;
+	void drawShape(const std::shared_ptr<Shape> shape, const Color &color) const;
+	void drawShape(const Vec2d& pos, const std::shared_ptr<Shape> shape, const Color &color) const;
 };
 
 #endif

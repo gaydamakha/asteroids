@@ -7,11 +7,11 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 	const VerticesArray &vertices,
 	double angle_acc) : MovingParticle(position,
 									   color,
-									   velocity),
-						polygone(vertices)
+									   velocity)
 {
 	this->angle_acc = angle_acc;
-	polygone.translate(coords);
+	polygone = std::make_shared<Polygone>(vertices);
+	polygone->translate(coords);
 }
 
 MovingPolygoneParticle::MovingPolygoneParticle(
@@ -21,24 +21,24 @@ MovingPolygoneParticle::MovingPolygoneParticle(
 	const RandomPolygoneDesc &desc,
 	double angle_acc) : MovingParticle(position,
 									   color,
-									   velocity),
-						polygone(desc)
+									   velocity)
 {
 	this->angle_acc = angle_acc;
-	polygone.translate(coords);
+	polygone = std::make_shared<Polygone>(desc);
+	polygone->translate(coords);
 }
 
 const MovingPolygoneParticle &MovingPolygoneParticle::step(double s)
 {
 	MovingParticle::step(s);
-	polygone.translate(velocity * s);
+	polygone->translate(velocity * s);
 
 	return *this;
 }
 
 const MovingPolygoneParticle &MovingPolygoneParticle::rotateShape(double s)
 {
-	polygone.rotate(coords, angle_acc * s);
+	polygone->rotate(coords, angle_acc * s);
 
 	return *this;
 }
@@ -47,7 +47,7 @@ const MovingPolygoneParticle &MovingPolygoneParticle::setCoords(Vec2d p)
 {
 	Vec2d delta = p - coords;
 	coords = p;
-	polygone.translate(delta);
+	polygone->translate(delta);
 
 	return *this;
 }

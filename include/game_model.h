@@ -41,7 +41,9 @@ public:
 
 	inline void finish() { game_began = false; }
 
-	inline bool isBegan() { return game_began; }
+	inline bool isBegan() const { return game_began; }
+
+	inline bool isOver() const { return game_over; }
 
 	void update();
 
@@ -70,8 +72,6 @@ public:
 	inline const Ship &getShip() const { return *ship; }
 
 	inline BulletsCollection getBullets() const { return bullets; }
-
-	inline bool isOver() const { return game_over; }
 
 	GameStats getStats() const;
 };

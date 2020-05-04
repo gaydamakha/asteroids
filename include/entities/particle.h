@@ -15,9 +15,9 @@ public:
 		this->color = color;
 	}
 
-	inline Vec2d getCoords() const { return coords; }
+	inline const Vec2d& getCoords() const { return coords; }
 
-	inline Color getColor() const { return color; }
+	inline const Color& getColor() const { return color; }
 
 	virtual inline const Particle& setCoords(Vec2d p) { coords = p; return *this; }
 

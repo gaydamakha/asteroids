@@ -17,22 +17,22 @@ static const json CONFIG_SCHEMA =
 		{"window_width", {
 			{"description", "Name"},
 			{"type", "integer"},
-			{"minimum", 100}
+			{"minimum", 600}
 		}},
 		{"window_height", {
 			{"description", "Name"},
 			{"type", "integer"},
-			{"minimum", 100}
+			{"minimum", 500}
 		}},
 		{"game_width", {
 			{"description", "Name"},
 			{"type", "integer"},
-			{"minimum", 100}
+			{"minimum", 600}
 		}},
 		{"game_height", {
 			{"description", "Name"},
 			{"type", "integer"},
-			{"minimum", 100}
+			{"minimum", 500}
 		}}
 	}},
 	{"required", {

@@ -5,7 +5,7 @@ const GameLevelsCollection &GameLevelsCollection::push(const json &level_config)
 	try
 	{
 		validator.validate(level_config); // validate the document - uses the default throwing error-handler
-		std::cout << "Level config validation succeeded" + level_config["level_name"].dump() << std::endl;
+		std::cout << level_config["level_name"].dump() +" config validation succeeded" << std::endl;
 	}
 	catch (const std::exception &e)
 	{

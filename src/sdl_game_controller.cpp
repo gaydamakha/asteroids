@@ -8,16 +8,44 @@ void SdlGameController::run()
 	bool quit = false;
 	SDL_Event event;
 	const Uint8 *keyboardState;
-
-	//TODO: begin on the user's confirmation
-	game_model->begin();
+	int mouse_x, mouse_y;
 
 	while (!quit)
 	{
+		//Clear the view
+		game_view->clear();
 		//Handle the events
+		if (!game_model->isBegan())
+		{
+			//Handle the case when game is already over
+			if (game_model->isOver())
+			{
+				game_view->showText(launch_menu.at(Event::START_GAME).getPosition() + Vec2d(0., -60),"Game over!", GREEN);
+			}
+			//If game was finished after this update
+			//TODO: show another banner
+			for (auto m : launch_menu)
+			{
+				game_view->showButton(m.second);
+			}
+			//If mouse is pressed
+			for (auto m : launch_menu)
+			{
+				if (m.second.isPressed())
+				{
+					Event e = m.first;
+					if (e == Event::START_GAME)
+						game_model->begin();
+					if (e == Event::EXIT)
+						quit = true;
+				}
+			}
+		}
 		//TODO: write and call this->handleKeyboardState();
 		keyboardState = SDL_GetKeyboardState(NULL);
 
+		if (keyboardState[SDL_SCANCODE_RETURN])
+			game_model->begin();
 		if (keyboardState[SDL_SCANCODE_LEFT])
 			game_model->rotateShipLeft();
 		if (keyboardState[SDL_SCANCODE_RIGHT])
@@ -39,28 +67,10 @@ void SdlGameController::run()
 			}
 		}
 
-		//Clear the view
-		game_view->clear();
 		//Update internal state of the model
 		game_model->update();
 
-		if (game_model->isOver())
-		{
-			//TODO: show menu instead of closing
-			std::cout << "Game over!" << std::endl;
-			quit = true;
-			break;
-		}
-
-		if (!game_model->isBegan())
-		{
-			//Game is successfully finished!
-			//TODO: show menu instead of closing
-			std::cout << "Game is finished!" << std::endl;
-			quit = true;
-			break;
-		}
-
+		//Update the view
 		game_view->update(*game_model);
 	}
 	SDL_Quit();

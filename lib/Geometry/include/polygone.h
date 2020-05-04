@@ -20,9 +20,9 @@ public:
 
 	Polygone(double, double, unsigned, double, double);
 
-	Polygone(const RandomPolygoneDesc&);
+	Polygone(const RandomPolygoneDesc &);
 
-	const bool isCircular() const;
+	inline const bool isClosed() const { return true; }
 };
 
 #endif

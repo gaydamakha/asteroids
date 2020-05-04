@@ -17,7 +17,7 @@ public:
 
     virtual bool isCollision(const Collider &) = 0;
 
-    inline const std::shared_ptr<Shape> getShape() const { return shape; }
+    inline const std::shared_ptr<Shape> getColliderShape() const { return shape; }
 
     inline Vec2d getPosition() const { return position; }
 };

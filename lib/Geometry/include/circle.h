@@ -11,7 +11,7 @@ class Circle : public Shape
 public:
     Circle(double radius) : radius(radius) {}
 
-    inline const bool isCircular() const { return true; }
+    inline const bool isClosed() const { return true; }
 
     inline const Circle& translate(const Vec2d &v) override { return *this;}
 

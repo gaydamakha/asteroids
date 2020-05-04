@@ -7,7 +7,7 @@
 class MovingPolygoneParticle : public MovingParticle
 {
 protected:
-	Polygone polygone;
+	std::shared_ptr<Polygone> polygone;
 	double angle_acc;
 
 public:
@@ -15,7 +15,7 @@ public:
 
 	MovingPolygoneParticle(const Vec2d &, const Color &, const Vec2d &v, const RandomPolygoneDesc &, double);
 
-	inline const Polygone getPolygone() const { return polygone; }
+	inline const std::shared_ptr<Shape> getShape() const { return polygone; }
 
 	const MovingPolygoneParticle &setCoords(Vec2d) override;
 

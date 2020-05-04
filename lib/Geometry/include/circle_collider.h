@@ -12,7 +12,7 @@ public:
     bool isCollision(const Collider &c)
     {
         const std::shared_ptr<Circle> col1 = std::static_pointer_cast<Circle>(this->shape);
-        const std::shared_ptr<Shape> shape2 = c.getShape();
+        const std::shared_ptr<Shape> shape2 = c.getColliderShape();
         if (std::shared_ptr<Circle> col2 = std::dynamic_pointer_cast<Circle>(shape2))
         {
             double rad1 = col1->getRadius();
