@@ -8,6 +8,7 @@
 #include "collections/game_levels_collection.h"
 #include "factories/asteroids_factory.h"
 #include "player.h"
+#include "game_stats.h"
 
 class GameModel
 {
@@ -71,6 +72,8 @@ public:
 	inline BulletsCollection getBullets() const { return bullets; }
 
 	inline bool isOver() const { return game_over; }
+
+	GameStats getStats() const;
 };
 
 #endif

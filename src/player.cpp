@@ -1,5 +1,11 @@
 #include "player.h"
 
+Player::Player()
+{
+    lifepoints = 0;
+    scores = 0;
+}
+
 Player::Player(std::shared_ptr<Ship> ship)
 {
     this->ship = ship;

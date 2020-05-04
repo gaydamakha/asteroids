@@ -11,7 +11,7 @@ class Player
     std::shared_ptr<Ship> ship;
 
 public:
-    Player() {}
+    Player();
 
     Player(std::shared_ptr<Ship> ship);
 
@@ -29,7 +29,10 @@ public:
         scores = 0;
         return *this;
     }
+
     inline unsigned getScores() { return scores; }
+
+    inline unsigned getHighscores() { return highscores; }
 
     inline const Player &addLifepoint()
     {

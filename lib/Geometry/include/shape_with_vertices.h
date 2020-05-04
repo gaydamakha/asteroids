@@ -2,20 +2,21 @@
 #define SHAPE_VER_H
 
 #include <Utils.h>
-#include <memory>
 #include "vec2.h"
-#include "iterable_shape.h"
+#include "shape.h"
 
 using Vertice = Vec2d;
 using VerticesArray = IterableCollection<Vertice>;
 
-class ShapeWithVertices : public IterableShape<Vertice>
+class ShapeWithVertices : public Shape
 {
 protected:
 	VerticesArray vertices;
 
 public:
 	ShapeWithVertices() {}
+
+	ShapeWithVertices(unsigned size) : vertices(size) {}
 	
 	ShapeWithVertices(const VerticesArray& v): vertices(v) {}
 
@@ -26,7 +27,7 @@ public:
 		return *this;
 	}
 
-	const VerticesArray getVertices()
+	VerticesArray getVertices()
 	{
 		return vertices;
 	}
@@ -36,18 +37,8 @@ public:
 		return vertices;
 	}
 
-	const VerticesArray getData()
-	{
-		return getVertices();
-	}
+	const ShapeWithVertices& rotate(const Vec2d &, double);
 
-	const VerticesArray getData() const
-	{
-		return getVertices();
-	}
-
-	const void rotate(const Vec2d &, double);
-
-	const void translate(const Vec2d &);
+	const ShapeWithVertices& translate(const Vec2d &);
 };
 #endif // !SHAPE_H

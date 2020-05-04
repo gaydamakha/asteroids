@@ -22,7 +22,7 @@ const GameModel &GameModel::setLevel(const GameLevelsCollection::Iterator &level
     //No way to create a ship without config -> rebuild the ship
     ship.reset(); //the reset of the shared pointer
     ship = std::make_shared<Ship>((*current_level)->ship_config);
-    player->setLifepoints((*current_level)->player_lifepoints);
+    player->addLifepoints((*current_level)->player_lifepoints);
     player->setShip(ship);
     asteroids_factory->setProps((*current_level)->asteroids_props);
     //Add asteroids
@@ -176,4 +176,14 @@ void GameModel::shoot()
 {
     BulletsCollection new_bullets = ship->shoot(timer->getTimestamp());
     bullets.moveFrom(new_bullets);
+}
+
+GameStats GameModel::getStats() const
+{
+    return {
+        player->getLifepoints(),
+        player->getScores(),
+        player->getHighscores(),
+        (*current_level)->name
+    };
 }

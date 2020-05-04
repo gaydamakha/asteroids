@@ -18,6 +18,8 @@ protected:
 public:
 	IterableCollection<T>() : collection() {}
 
+	IterableCollection<T>(unsigned size): collection(size) {}
+
 	//The use of delegating constructor
 	IterableCollection<T>(std::initializer_list<T> il) : IterableCollection<T>()
 	{

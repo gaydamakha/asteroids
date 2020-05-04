@@ -13,9 +13,9 @@ public:
 
     inline const bool isCircular() const { return true; }
 
-    inline const void translate(const Vec2d &v) {}
+    inline const Circle& translate(const Vec2d &v) override { return *this;}
 
-    inline const void rotate(const Vec2d &, double) {}
+    inline const Circle& rotate(const Vec2d &, double) override { return *this; }
 
     inline const double getRadius() const { return radius; }
 };

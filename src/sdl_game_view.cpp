@@ -4,6 +4,7 @@
 #include "entities/asteroid.h"
 
 SdlGameView::SdlGameView(const std::string &game_name, int game_width, int game_height, const Color &background)
+	: GameView(game_name, game_width, game_height, background)
 {
 	assert(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS) == 0);
 	window = SDL_CreateWindow(game_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, game_width, game_height,
@@ -12,7 +13,6 @@ SdlGameView::SdlGameView(const std::string &game_name, int game_width, int game_
 	assert(renderer != NULL);
 	SDL_GetRendererOutputSize(renderer, &this->game_width, &this->game_height);
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
-	this->background = background;
 	drawer = std::make_unique<SdlDrawer>(renderer);
 }
 
