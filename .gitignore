@@ -1,4 +1,6 @@
 .vscode/
-build/
+.idea/
+cmake-build-debug
+cmake-build-release
 libraries/Utils/build/
 libraries/Geometry/build
