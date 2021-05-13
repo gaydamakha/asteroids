@@ -1,7 +1,7 @@
 {
     "game_name": "Asteroids",
-    "window_width": 1000,
+    "window_width": 600,
     "window_height": 600,
-    "game_width": 1000,
+    "game_width": 600,
     "game_height": 600
 }

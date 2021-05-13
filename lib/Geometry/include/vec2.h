@@ -176,12 +176,12 @@ public:
 	
 	inline double getLength()
 	{
-		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
+		return abs((double)sqrtf(powf(x, 2) + powf(y,2)));
 	}
 
 	inline double getLength() const
 	{
-		return abs((double)sqrtf64(powf64(x, 2) + powf64(y,2)));
+		return abs((double)sqrtf(powf(x, 2) + powf(y,2)));
 	}
 
 	Vec2<T> rotate(double rotangle);

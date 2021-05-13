@@ -187,6 +187,7 @@ void GameModel::resetPlayer()
     {
         game_began = false;
         game_over = true;
+        player->resetScores();
     }
 }
 

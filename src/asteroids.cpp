@@ -14,9 +14,7 @@
 
 using namespace nlohmann;
 
-static const std::string LEVELS_PATH = CONFIGS_PATH + "levels/";
-
-int get_config(std::string filename, json &config)
+int get_config(const std::string& filename, json &config)
 {
 	std::ifstream i(filename);
 	i >> config;
@@ -37,7 +35,7 @@ int get_config(std::string filename, json &config)
 	return 0;
 }
 
-int load_levels(std::string path, GameLevelsCollection& levels)
+int load_levels(const std::string& path, GameLevelsCollection& levels)
 {
 	json level;
 	for (const auto &filename: std::filesystem::directory_iterator(path))
@@ -54,7 +52,8 @@ int main(int argc, char **argv)
 {
 	json config;
 	int status;
-	if ((status = get_config(CONFIGS_PATH + "asteroids.json", config)) != 0) 
+    static const std::string LEVELS_PATH = CONFIGS_PATH + "levels/";
+    if ((status = get_config(CONFIGS_PATH + "asteroids.json", config)) != 0)
 	{
 		return status;
 	}

@@ -3,69 +3,63 @@
 
 #include "entities/ship.h"
 
-class Player
-{
+class Player {
     unsigned lifepoints;
-    unsigned scores;
-    unsigned highscores;
+    unsigned scores = 0;
+    unsigned highscores = 0;
     std::shared_ptr<Ship> ship;
 
 public:
     Player();
 
-    Player(std::shared_ptr<Ship> ship);
+    explicit Player(std::shared_ptr<Ship> &ship);
 
-    Player(unsigned init_lifepoints, std::shared_ptr<Ship> ship);
+    Player(unsigned init_lifepoints, std::shared_ptr<Ship> &ship);
 
-    inline const Player &addScore()
-    {
+    inline const Player &addScore() {
         scores++;
-        highscores++;
+        if (scores > highscores) {
+            highscores++;
+        }
 
         return *this;
     }
-    inline const Player &resetScores()
-    {
+
+    inline const Player &resetScores() {
         scores = 0;
         return *this;
     }
 
-    inline unsigned getScores() { return scores; }
+    [[nodiscard]] inline unsigned getScores() const { return scores; }
 
-    inline unsigned getHighscores() { return highscores; }
+    [[nodiscard]] inline unsigned getHighscores() const { return highscores; }
 
-    inline const Player &addLifepoint()
-    {
+    inline const Player &addLifepoint() {
         lifepoints++;
         return *this;
     }
 
-    inline const Player &addLifepoints(unsigned lfs)
-    {
+    inline const Player &addLifepoints(unsigned lfs) {
         lifepoints += lfs;
         return *this;
     }
 
-    inline const Player &removeLifepoint()
-    {
-        if (lifepoints > 0)
-        {
+    inline const Player &removeLifepoint() {
+        if (lifepoints > 0) {
             lifepoints--;
         }
         return *this;
     }
 
-    inline const Player &setLifepoints(unsigned l)
-    {
+    inline const Player &setLifepoints(unsigned l) {
         lifepoints = l;
         return *this;
     }
 
-    inline unsigned getLifepoints() { return lifepoints; }
+    [[nodiscard]] inline unsigned getLifepoints() const { return lifepoints; }
 
-    inline const Player &setShip(const std::shared_ptr<Ship> ship)
-    {
-        this->ship = ship;
+    inline const Player &setShip(const std::shared_ptr<Ship> &newShip) {
+        ship = newShip;
         return *this;
     }
 

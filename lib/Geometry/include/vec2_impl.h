@@ -1,5 +1,5 @@
 #ifndef VEC2_IMPL_H
-#define VEC2_IMP_H
+#define VEC2_IMPL_H
 
 #include <cmath>
 #include "trigonometry.h"

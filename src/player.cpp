@@ -1,21 +1,23 @@
 #include "player.h"
 
+#include <utility>
+
 Player::Player()
 {
     lifepoints = 0;
     scores = 0;
 }
 
-Player::Player(std::shared_ptr<Ship> ship)
+Player::Player(std::shared_ptr<Ship>& newShip)
 {
-    this->ship = ship;
+    ship = newShip;
     lifepoints = 0;
     scores = 0;
 }
 
-Player::Player(unsigned init_lifepoints, std::shared_ptr<Ship> ship)
+Player::Player(unsigned init_lifepoints, std::shared_ptr<Ship>& newShip)
 {
-    this->ship = ship;
+    this->ship = newShip;
     lifepoints = init_lifepoints;
     scores = 0;
 }
