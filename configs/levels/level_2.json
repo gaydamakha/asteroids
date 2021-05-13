@@ -87,10 +87,10 @@
                 "y": 22
             }
         ],
-        "angle_acc": 1.0,
+        "angle_acc": 2.0,
         "collider_radius": 22,
         "init_angle": 270,
-        "acc": 1.0,
+        "acc": 2.0,
         "gun_config": {
             "bullets_radius": 5,
             "bullets_vel": 350,
